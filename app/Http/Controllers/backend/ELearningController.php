@@ -6,13 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\ELearning;
 use App\Models\Guru;
 use App\Models\MataPelajaran;
+use App\Models\Kelas; 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
 
 class ELearningController extends Controller
 {
     public function index()
     {
-        $eLearnings = ELearning::all();
+        // Eager load semua relasi yang dibutuhkan
+        $eLearnings = ELearning::with(['guru', 'mataPelajaran', 'kelas'])->latest()->paginate(10);
         return view('backend.pages.e_learning.index', compact('eLearnings'));
     }
 
@@ -20,7 +24,8 @@ class ELearningController extends Controller
     {
         $gurus = Guru::all();
         $mataPelajarans = MataPelajaran::all();
-        return view('backend.pages.e_learning.create', compact('gurus', 'mataPelajarans'));
+        $kelas = Kelas::orderBy('nama')->get(); // Ambil data kelas untuk form
+        return view('backend.pages.e_learning.create', compact('gurus', 'mataPelajarans', 'kelas'));
     }
 
     public function store(Request $request)
@@ -28,19 +33,48 @@ class ELearningController extends Controller
         $request->validate([
             'guru_id' => 'required|exists:guru,id',
             'mata_pelajaran_id' => 'required|exists:mata_pelajaran,id',
+            'kelas_ids' => 'required|array', // Validasi input kelas harus array
+            'kelas_ids.*' => 'exists:kelas,id', // Validasi setiap item dalam array kelas
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'tautan' => 'required|url',
             'jenjang' => 'required|in:SMP,SMA',
+            'tipe' => 'required|in:materi,tugas',
+            'batas_waktu' => 'nullable|date',
+            'materi_file' => 'nullable|file|max:5120',
         ]);
 
-        ELearning::create($request->all());
+        try {
+            DB::beginTransaction();
 
-        return redirect()->route('e_learning.index')->with('success', 'ELearning berhasil ditambahkan');
+            $data = $request->except(['materi_file', 'kelas_ids']);
+
+            if ($request->hasFile('materi_file')) {
+                $file = $request->file('materi_file');
+                $data['file_name'] = $file->getClientOriginalName();
+                $data['file_mime'] = $file->getClientMimeType();
+                $data['file_data'] = base64_encode(file_get_contents($file->getRealPath()));
+            }
+
+            // 1. Buat data E-Learning
+            $eLearning = ELearning::create($data);
+
+            // 2. Lampirkan kelas yang dipilih ke data E-Learning
+            if (!empty($request->kelas_ids)) {
+                $eLearning->kelas()->attach($request->kelas_ids);
+            }
+
+            DB::commit();
+            return redirect()->route('e_learning.index')->with('success', 'E-Learning berhasil ditambahkan.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage())->withInput();
+        }
     }
 
     public function show(ELearning $eLearning)
     {
+        $eLearning->load('kelas'); // Muat relasi kelas
         return view('backend.pages.e_learning.show', compact('eLearning'));
     }
 
@@ -48,7 +82,9 @@ class ELearningController extends Controller
     {
         $gurus = Guru::all();
         $mataPelajarans = MataPelajaran::all();
-        return view('backend.pages.e_learning.edit', compact('eLearning', 'gurus', 'mataPelajarans'));
+        $kelas = Kelas::orderBy('nama')->get();
+        $eLearning->load('kelas'); // Muat kelas yang sudah terhubung
+        return view('backend.pages.e_learning.edit', compact('eLearning', 'gurus', 'mataPelajarans', 'kelas'));
     }
 
     public function update(Request $request, ELearning $eLearning)
@@ -56,21 +92,76 @@ class ELearningController extends Controller
         $request->validate([
             'guru_id' => 'required|exists:guru,id',
             'mata_pelajaran_id' => 'required|exists:mata_pelajaran,id',
+            'kelas_ids' => 'required|array',
+            'kelas_ids.*' => 'exists:kelas,id',
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'tautan' => 'required|url',
             'jenjang' => 'required|in:SMP,SMA',
+            'tipe' => 'required|in:materi,tugas',
+            'batas_waktu' => 'nullable|date',
+            'materi_file' => 'nullable|file|max:5120',
         ]);
 
-        $eLearning->update($request->all());
+        try {
+            DB::beginTransaction();
+            
+            $data = $request->except(['materi_file', 'kelas_ids']);
 
-        return redirect()->route('e_learning.index')->with('success', 'ELearning berhasil diperbarui');
+            if ($request->hasFile('materi_file')) {
+                $file = $request->file('materi_file');
+                $data['file_name'] = $file->getClientOriginalName();
+                $data['file_mime'] = $file->getClientMimeType();
+                $data['file_data'] = base64_encode(file_get_contents($file->getRealPath()));
+            }
+
+            // 1. Update data E-Learning
+            $eLearning->update($data);
+
+            // 2. Sinkronkan kelas yang dipilih (otomatis menambah/menghapus relasi)
+            if (!empty($request->kelas_ids)) {
+                $eLearning->kelas()->sync($request->kelas_ids);
+            } else {
+                $eLearning->kelas()->detach(); // Hapus semua relasi jika tidak ada kelas yang dipilih
+            }
+
+            DB::commit();
+            return redirect()->route('e_learning.index')->with('success', 'E-Learning berhasil diperbarui.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage())->withInput();
+        }
     }
 
     public function destroy(ELearning $eLearning)
     {
-        $eLearning->delete();
+        try {
+            DB::beginTransaction();
+            $eLearning->kelas()->detach(); // Hapus relasi di pivot table dulu
+            $eLearning->delete();
+            DB::commit();
+            return redirect()->route('e_learning.index')->with('success', 'E-Learning berhasil dihapus.');
+        } catch(\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal menghapus data.');
+        }
+    }
 
-        return redirect()->route('e_learning.index')->with('success', 'ELearning berhasil dihapus');
+    public function download(ELearning $eLearning)
+    {
+        // ... (fungsi download tetap sama) ...
+        if (!$eLearning->file_data || !$eLearning->file_name) {
+            abort(404, 'File tidak ditemukan.');
+        }
+
+        $fileContent = base64_decode($eLearning->file_data);
+
+        $headers = [
+            'Content-Type' => $eLearning->file_mime ?? 'application/octet-stream',
+            'Content-Disposition' => 'attachment; filename="' . $eLearning->file_name . '"',
+        ];
+
+        return Response::make($fileContent, 200, $headers);
     }
 }
+

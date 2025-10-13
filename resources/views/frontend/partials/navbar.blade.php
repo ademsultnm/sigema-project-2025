@@ -2,13 +2,13 @@
 <div class="container">
 
     <h1>
-        <a href="{{url('/')}}" class="logo">EduHome</a>
+        <a href="{{url('/')}}" class="logo">SIGEMA</a>
     </h1>
 
     <nav class="navbar" data-navbar>
 
         <div class="navbar-top">
-            <a href="{{url('/')}}" class="logo">EduHome</a>
+            <a href="{{url('/')}}" class="logo">SIGEMA</a>
 
             <button class="nav-close-btn" aria-label="Close menu" data-nav-toggler>
                 <ion-icon name="close-outline"></ion-icon>

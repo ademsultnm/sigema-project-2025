@@ -1,0 +1,56 @@
+// resources/sass/_custom-login.scss
+
+// Atur variabel default Bootstrap jika perlu, contoh:
+// $body-bg: #f8f9fa;
+
+.main-login-container {
+    background-color: #f0f2f5; // Warna latar belakang abu-abu lembut
+    min-height: calc(100vh - 56px); // Tinggi layar dikurangi tinggi navbar default
+    display: flex;
+    align-items: center;
+}
+
+.login-card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+
+.login-card .card-body {
+    padding: 2.5rem;
+}
+
+.login-card-title {
+    margin-bottom: 2rem;
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: #495057;
+}
+
+// Styling untuk input group dengan ikon
+.input-group-text {
+    background-color: #fff;
+    border-right: 0;
+    border-radius: 0.5rem 0 0 0.5rem !important;
+}
+
+.input-group .form-control {
+    border-left: 0;
+    border-radius: 0 0.5rem 0.5rem 0 !important;
+}
+
+.form-control:focus {
+    box-shadow: none !important;
+    border-color: #dee2e6; // Hilangkan highlight biru default agar lebih halus
+}
+
+.btn-login {
+    padding: 0.75rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.auth-links {
+    font-size: 0.9rem;
+}

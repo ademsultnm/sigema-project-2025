@@ -17,4 +17,19 @@ class Siswa extends Model
         'alamat',
         'jenjang',
     ];
+
+    /**
+     * Mendefinisikan relasi "hasOne" ke model User.
+     * Satu Siswa memiliki satu Akun User.
+     */
+   
+     public function user()
+    {
+        return $this->hasOne(User::class, 'siswa_id');
+    }
+
+    public function kelas()
+    {
+        return $this->belongsToMany(Kelas::class, 'kelas_siswa')->withPivot('tahun_ajaran')->withTimestamps();
+    }
 }

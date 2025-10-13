@@ -22,6 +22,8 @@ class User extends Authenticatable
         'foto_profile',
         'email',
         'password',
+         'guru_id', // Foreign key untuk relasi ke Guru
+        'siswa_id',
     ];
 
 
@@ -39,4 +41,16 @@ class User extends Authenticatable
     }
 
 
+public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'siswa_id');
+    }
+
+    /**
+     * Mendefinisikan relasi "belongsTo" ke model Guru.
+     */
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'guru_id');
+    }
 }

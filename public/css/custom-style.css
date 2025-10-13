@@ -1,0 +1,40 @@
+/* public/css/custom-style.css */
+
+.login-card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+
+.login-card .card-body {
+    padding: 2.5rem;
+}
+
+.login-card-title {
+    margin-bottom: 2rem;
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: #495057;
+}
+
+.input-group-text {
+    border-right: 0;
+}
+
+.input-group .form-control {
+    border-left: 0;
+}
+
+.form-control:focus {
+    box-shadow: none !important;
+}
+
+.btn-login {
+    padding: 0.75rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+}
+
+.auth-links {
+    font-size: 0.9rem;
+}

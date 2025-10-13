@@ -12,21 +12,34 @@ class Nilai extends Model
 
     protected $fillable = [
         'siswa_id',
+        'kelas_id',
         'mata_pelajaran_id',
-        'nilai_ulangan_harian',
-        'nilai_ujian_tengah_semester',
-        'nilai_ujian_akhir_semester',
-        'sumber_nilai',
-        'jenjang',
+        'guru_id',
+        'tipe_nilai',
+        'deskripsi',
+        'nilai',
+        'tanggal_penilaian',
+        'tahun_ajaran',
+        'semester',
     ];
 
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class);
+        return $this->belongsTo(Siswa::class, 'siswa_id');
+    }
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
     public function mataPelajaran()
     {
-        return $this->belongsTo(MataPelajaran::class);
+        return $this->belongsTo(MataPelajaran::class, 'mata_pelajaran_id');
+    }
+
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'guru_id');
     }
 }

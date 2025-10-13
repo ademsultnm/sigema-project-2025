@@ -1,51 +1,60 @@
-<!-- resources/views/kelas/edit.blade.php -->
-
 @extends('backend.layouts.app')
 @section('title', 'Edit Kelas')
 @section('content')
     <div id="main">
         <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
+            <a href="#" class="burger-btn d-block d-xl-none"><i class="bi bi-justify fs-3"></i></a>
         </header>
 
         <div class="page-heading">
-            <h3>Edit Kelas</h3>
+            <h3>Edit Data Kelas</h3>
         </div>
 
         <div class="page-content">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">Edit Kelas</div>
-
+                        <div class="card-header"><h5>Form Edit Kelas</h5></div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('kelas_admin.update', $kelas_admin) }}">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            <form method="POST" action="{{ route('kelas_admin.update', $kelas_admin->id) }}">
                                 @csrf
                                 @method('PUT')
 
                                 <div class="form-group">
                                     <label for="nama">Nama Kelas</label>
-                                    <input type="text" class="form-control" id="nama" name="nama"
-                                        value="{{ old('nama', $kelas_admin->nama) }}" required>
+                                    <input type="text" id="nama" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama', $kelas_admin->nama) }}" placeholder="Contoh: VII-A, X IPA 1" required>
+                                    @error('nama')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="tingkat">Tingkat</label>
-                                    <input type="number" class="form-control" id="tingkat" name="tingkat"
-                                        value="{{ old('tingkat', $kelas_admin->tingkat) }}" required>
+                                    <input type="number" id="tingkat" class="form-control @error('tingkat') is-invalid @enderror" name="tingkat" value="{{ old('tingkat', $kelas_admin->tingkat) }}" required>
+                                    {{-- PEMBERITAHUAN CONTOH INPUT --}}
+                                    <small class="form-text text-muted">Contoh: 7, 8, 9 untuk SMP; 10, 11, 12 untuk SMA.</small>
+                                    @error('tingkat')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="jenjang">Jenjang</label>
-                                    <select class="form-control" id="jenjang" name="jenjang" required>
-                                        <option value="SMP" {{ $kelas_admin->jenjang == 'SMP' ? 'selected' : '' }}>SMP</option>
-                                        <option value="SMA" {{ $kelas_admin->jenjang == 'SMA' ? 'selected' : '' }}>SMA</option>
+                                    <select id="jenjang" class="form-control @error('jenjang') is-invalid @enderror" name="jenjang" required>
+                                        <option value="SMP" {{ old('jenjang', $kelas_admin->jenjang) == 'SMP' ? 'selected' : '' }}>SMP</option>
+                                        <option value="SMA" {{ old('jenjang', $kelas_admin->jenjang) == 'SMA' ? 'selected' : '' }}>SMA</option>
                                     </select>
+                                    @error('jenjang')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                <a href="{{ route('kelas_admin.index') }}" class="btn btn-secondary mt-3">Kembali</a>
+                                <button type="submit" class="btn btn-primary mt-3">Simpan Perubahan</button>
                             </form>
                         </div>
                     </div>
