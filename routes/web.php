@@ -82,14 +82,14 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::resource('e_learning', ELearningController::class);
     Route::get('e_learning/{eLearning}/download', [ELearningController::class, 'download'])->name('e_learning.download');
     
-  Route::get('jawaban-siswa', [JawabanSiswaController::class, 'index'])->name('jawaban-siswa.index');
+    Route::get('jawaban-siswa', [JawabanSiswaController::class, 'index'])->name('jawaban-siswa.index');
     Route::get('jawaban-siswa/{eLearning}', [JawabanSiswaController::class, 'show'])->name('jawaban-siswa.show');
     Route::get('jawaban-siswa/view/{pengumpulanTugas}', [JawabanSiswaController::class, 'viewJawaban'])->name('jawaban-siswa.view');
 
     Route::resource('soal', SoalController::class);
     Route::resource('jawaban', JawabanController::class);
     Route::resource('siswa', SiswaController::class);
-     Route::resource('jadwal-pelajaran', JadwalPelajaranController::class);
+    Route::resource('jadwal-pelajaran', JadwalPelajaranController::class);
     Route::resource('nilai', NilaiController::class)->except(['index']); // Index sudah ada di grup umum
 
     Route::resource('raports', RaportController::class);
@@ -99,7 +99,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('absensi_siswa/show/{kelas}/{tanggal}', [AbsensiSiswaController::class, 'show_class'])->name('absensi_siswa.show_class');
     
     Route::resource('tagihan-spp', TagihanSppController::class);
-     Route::get('laporan-keuangan', [LaporanKeuanganController::class, 'index'])->name('laporan-keuangan.index');
+    Route::get('laporan-keuangan', [LaporanKeuanganController::class, 'index'])->name('laporan-keuangan.index');
     Route::get('laporan-keuangan/pdf', [LaporanKeuanganController::class, 'exportPdf'])->name('laporan-keuangan.pdf');
     Route::get('laporan-keuangan/excel', [LaporanKeuanganController::class, 'exportExcel'])->name('laporan-keuangan.excel');
 

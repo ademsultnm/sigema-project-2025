@@ -28,7 +28,7 @@ class SiswaController extends Controller
         // Terapkan filter pencarian nama atau NIS jika ada
         $query->when($request->search, function ($q, $search) {
             return $q->where('nama', 'like', "%{$search}%")
-                     ->orWhere('nis', 'like', "%{$search}%");
+                    ->orWhere('nis', 'like', "%{$search}%");
         });
 
         // Terapkan filter jenjang jika ada
@@ -166,7 +166,7 @@ class SiswaController extends Controller
         
         $request->validate($validationRules);
 
-         try {
+        try {
             DB::beginTransaction();
 
             // 1. Update data siswa secara manual

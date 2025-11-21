@@ -89,7 +89,7 @@
                         </div>
                     </div>
 
-                   
+
 
                     <div class="row">
                         <div class="col-12 col-xl-4">
@@ -173,13 +173,21 @@
                                 </div>
                             </div>
                             {{-- Tombol Logout dengan Konfirmasi --}}
-                            <a href="{{ route('logouts') }}" class="btn btn-danger mt-3 w-100"
-                               onclick="event.preventDefault(); 
+                            {{-- <a href="{{ route('logouts') }}" class="btn btn-danger mt-3 w-100"
+                            onclick="event.preventDefault(); 
                                         if(confirm('Apakah Anda yakin ingin keluar?')) {
                                             window.location.href='{{ route('logouts') }}';
                                         }">
                                 Logout
-                            </a>
+                            </a> --}}
+                            <form id="logout-form" action="{{ route('logouts') }}" method="POST" class="mt-3 w-100">
+                                @csrf
+                                <button type="submit" class="btn btn-danger w-100" onclick="return confirm('Apakah Anda yakin ingin keluar?')">
+                                    Logout
+                                </button>
+                            </form>
+
+
                         </div>
                     </div>
                     <div class="card">

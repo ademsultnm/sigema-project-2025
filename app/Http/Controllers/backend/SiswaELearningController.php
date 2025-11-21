@@ -42,8 +42,8 @@ class SiswaELearningController extends Controller
     {
         $siswaId = Auth::user()->siswa_id;
         $jawabanTerkirim = PengumpulanTugas::where('e_learning_id', $eLearning->id)
-                                          ->where('siswa_id', $siswaId)
-                                          ->first();
+                                        ->where('siswa_id', $siswaId)
+                                        ->first();
 
         return view('backend.pages.siswa_e_learning.show', compact('eLearning', 'jawabanTerkirim'));
     }
@@ -77,5 +77,5 @@ class SiswaELearningController extends Controller
 
         return redirect()->back()->with('error', 'Gagal mengunggah file.');
     }
-}
+} 
 

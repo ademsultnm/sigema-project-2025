@@ -22,8 +22,8 @@ class Siswa extends Model
      * Mendefinisikan relasi "hasOne" ke model User.
      * Satu Siswa memiliki satu Akun User.
      */
-   
-     public function user()
+
+    public function user()
     {
         return $this->hasOne(User::class, 'siswa_id');
     }

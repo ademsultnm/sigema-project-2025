@@ -59,7 +59,7 @@
                                 </div>
                                 <div>
                                     <h3 class="h3 card-title">
-                                        <a href="#">Materi & Tugas Online</a>
+                                        <a>Materi & Tugas Online</a>
                                     </h3>
                                     <span class="card-meta">Akses materi & kumpulkan tugas</span>
                                 </div>
@@ -73,7 +73,7 @@
                                 </div>
                                 <div>
                                     <h3 class="h3 card-title">
-                                        <a href="#">Manajemen Nilai</a>
+                                        <a>Manajemen Nilai</a>
                                     </h3>
                                     <span class="card-meta">Lihat rekap nilai secara transparan</span>
                                 </div>
@@ -87,7 +87,7 @@
                                 </div>
                                 <div>
                                     <h3 class="h3 card-title">
-                                        <a href="#">Absensi Digital</a>
+                                        <a>Absensi Digital</a>
                                     </h3>
                                     <span class="card-meta">Pantau catatan kehadiranmu</span>
                                 </div>
@@ -101,7 +101,7 @@
                                 </div>
                                 <div>
                                     <h3 class="h3 card-title">
-                                        <a href="#">Pembayaran SPP</a>
+                                        <a>Pembayaran SPP</a>
                                     </h3>
                                     <span class="card-meta">Bayar tagihan sekolah online</span>
                                 </div>
@@ -115,7 +115,7 @@
                                 </div>
                                 <div>
                                     <h3 class="h3 card-title">
-                                        <a href="#">Jadwal Pelajaran</a>
+                                        <a>Jadwal Pelajaran</a>
                                     </h3>
                                     <span class="card-meta">Lihat jadwal kelasmu kapan saja</span>
                                 </div>
@@ -129,7 +129,7 @@
                                 </div>
                                 <div>
                                     <h3 class="h3 card-title">
-                                        <a href="#">Komunikasi Guru</a>
+                                        <a>Komunikasi Guru</a>
                                     </h3>
                                     <span class="card-meta">Terhubung langsung dengan pengajar</span>
                                 </div>
@@ -231,7 +231,7 @@
                                     <div class="card-footer">
                                         <a href="#" class="btn-link">
                                             <span class="span">Baca Selengkapnya</span>
-                                             <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                                            <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
                                         </a>
                                     </div>
                                 </div>
@@ -247,7 +247,7 @@
                                 </figure>
                                 <div class="card-content">
                                     <ul class="card-meta-list">
-                                         <li class="card-meta-item">
+                                        <li class="card-meta-item">
                                             <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
                                             <span class="card-meta-text">20 Des 2025</span>
                                         </li>
@@ -256,9 +256,9 @@
                                         <a href="#" class="card-title">Kegiatan Class Meeting Akhir Semester</a>
                                     </h3>
                                     <div class="card-footer">
-                                         <a href="#" class="btn-link">
+                                        <a href="#" class="btn-link">
                                             <span class="span">Baca Selengkapnya</span>
-                                             <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                                            <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
                                         </a>
                                     </div>
                                 </div>

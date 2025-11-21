@@ -42,7 +42,7 @@ class TagihanSppController extends Controller
     }
 
     // ... (method create, store, edit, update, destroy tetap sama) ...
-     public function create()
+    public function create()
     {
         $siswas = Siswa::orderBy('nama', 'asc')->get();
         return view('backend.pages.tagihan_spp.create', compact('siswas'));
@@ -61,7 +61,7 @@ class TagihanSppController extends Controller
         TagihanSpp::create($request->all());
         return redirect()->route('tagihan-spp.index')->with('success', 'Tagihan SPP berhasil ditambahkan.');
     }
-     public function show(TagihanSpp $tagihanSpp)
+    public function show(TagihanSpp $tagihanSpp)
     {
         $tagihanSpp->load('siswa');
         return view('backend.pages.tagihan_spp.show', compact('tagihanSpp'));
