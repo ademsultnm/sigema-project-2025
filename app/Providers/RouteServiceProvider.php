@@ -21,8 +21,9 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         // model binding manual untuk user
-        Route::model('admin', User::class);
+        // Route::model('admin', User::class);
 
+        
         $this->routes(function () {
             Route::middleware('api')
                 ->prefix('api')
@@ -30,6 +31,11 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+        });
+
+        // custom binding untuk {admin} agar hanya mengambil user dengan role 'Admin'
+        Route::bind('admin', function ($value) {
+            return User::whereRaw('LOWER(role) = ?', ['admin'])->findOrFail($value);
         });
     }
 }
