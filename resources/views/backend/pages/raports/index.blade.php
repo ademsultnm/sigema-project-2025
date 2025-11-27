@@ -20,6 +20,7 @@
 
                         <div class="card-body">
                             <form method="GET" action="{{ route('raports.index') }}">
+
                                 <div class="form-group row">
                                     <label for="jenjang" class="col-md-2 col-form-label text-md-right">Jenjang:</label>
                                     <div class="col-md-4">
@@ -43,11 +44,34 @@
                                 <div class="form-group row">
                                     <label for="semester" class="col-md-2 col-form-label text-md-right">Semester:</label>
                                     <div class="col-md-4">
-                                        <input id="semester" type="text" class="form-control" name="semester"
-                                            value="{{ request('semester') }}">
+                                        {{-- <input id="semester" type="text" class="form-control" name="semester"
+                                            value="{{ request('semester') }}"> --}}
+
+                                        <select name="semester" class="form-control" id="semester">
+                                            <option value="">-- Pilih Semester --</option>
+                                            <option value="Ganjil" {{ request('semester') == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
+                                            <option value="Genap" {{  request('semester') == 'Genap' ? 'selected' : '' }}>Genap</option>
+
+                                        </select>
                                     </div>
 
-                                    <div class="col-md-6 text-right">
+                                    <label for="kelas_id" class="col-md-2 col-form-label text-md-right">Kelas:</label>
+                                    <div class="col-md-4">
+                                        <select class="form-control" name="kelas_id">
+                                            <option value="">-- Pilih Kelas --</option>
+                                            <option value="">Semua Kelas</option>
+                                            @foreach($semuaKelas as $k)
+                                                <option value="{{ $k->id }}" {{ request('kelas_id') == $k->id ? 'selected' : '' }}>
+                                                    {{ $k->nama }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mt-3">
+                                    <div class="col-md-8"></div>
+                                    <div class="col-md-4 text-left">
                                         <button type="submit" class="btn btn-primary">Filter</button>
                                         <a href="{{ route('raports.index') }}" class="btn btn-secondary">Reset</a>
                                         <a href="{{ route('raports.create') }}" class="btn btn-success">Add Raport</a>
@@ -58,8 +82,9 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>No.</th>
                                         <th>Nama Siswa</th>
+                                        <th>Kelas</th>
                                         <th>Semester</th>
                                         <th>Tahun Ajaran</th>
                                         <th>Rata-rata Nilai</th>
@@ -72,6 +97,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $raport->siswa->nama }}</td>
+                                            <td>{{ optional($raport->siswa->kelas->first())->nama ?? '-' }}</td>
                                             <td>{{ $raport->semester }}</td>
                                             <td>{{ $raport->tahun_ajaran }}</td>
                                             <td>{{ $raport->rata_rata_nilai }}</td>

@@ -44,7 +44,10 @@ class SiswaController extends Controller
         });
 
         // Ambil hasil dengan paginasi dan urutkan berdasarkan data terbaru
-        $siswas = $query->latest()->paginate(10);
+        // $siswas = $query->latest()->paginate(10);
+
+        // ambil hasil dengan paginasi dan urutan berdasarkan data lama berada diatas sendiri
+        $siswas = $query->oldest()->paginate(10);
 
         return view('backend.pages.siswa.index', compact('siswas', 'kelas'));
     }

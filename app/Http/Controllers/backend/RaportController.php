@@ -5,12 +5,17 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\Raport;
 use App\Models\Siswa;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 
 class RaportController extends Controller
 {
     public function index(Request $request)
     {
+        // ambil daftar kelas untuk filter
+        $semuaKelas = Kelas::all();
+
+        // ambil data raport dengan filter
         $raports = Raport::query();
 
         // Filter berdasarkan jenjang
@@ -28,9 +33,17 @@ class RaportController extends Controller
             $raports->where('semester', $request->semester);
         }
 
+        // Filter berdasarkan kelas
+        if ($request->has('kelas_id')) {
+            $raports->whereHas('siswa.kelas', function ($query) use ($request) {
+                $query->where('kelas.id', $request->kelas_id);
+            });
+        }
+
         $raports = $raports->paginate(10);
 
-        return view('backend.pages.raports.index', compact('raports'));
+        return view('backend.pages.raports.index', compact('raports', 'semuaKelas'));
+        
     }
 
     public function create()

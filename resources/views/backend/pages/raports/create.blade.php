@@ -30,7 +30,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="semester">Semester:</label>
-                                    <input type="text" name="semester" id="semester" class="form-control" required>
+                                    <select placeholder="Ganjil/Genap" type="text" name="semester" id="semester" class="form-control" required>
+                                        <option value="">-- Pilih Keterangan --</option>
+                                        <option value="Ganjil">Ganjil</option>
+                                        <option value="Genap">Genap</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="tahun_ajaran">Tahun Ajaran:</label>
@@ -44,8 +48,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="keterangan">Keterangan:</label>
-                                    <input type="text" name="keterangan" id="keterangan" class="form-control" required>
+                                    <select name="keterangan" id="keterangan" class="form-control" required>
+                                        <option value="">-- Pilih Keterangan --</option>
+                                        <option value="Lulus">Lulus</option>
+                                        <option value="Tidak Lulus">Tidak Lulus</option>
+                                        <option value="Pending">Pending</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="jenjang">Jenjang:</label>
                                     <select name="jenjang" id="jenjang" class="form-control">
@@ -54,6 +64,8 @@
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ route('raports.index') }}" class="btn btn-secondary ml-2">Batal</a>
+
                             </form>
                         </div>
                     </div>

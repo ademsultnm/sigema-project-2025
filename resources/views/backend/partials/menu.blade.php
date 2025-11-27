@@ -113,58 +113,62 @@
                 {{--                        MENU ADMIN BIASA                    --}}
                 {{-- ========================================================== --}}
                 @elseif (strtolower(auth()->user()->role) === 'admin')
-                    <li class="sidebar-title">Admin Menu</li>
-                    {{-- INPUT DATA OPERASIONAL --}}
-                    <li class="sidebar-item has-sub {{ request()->routeIs(['siswa.*', 'guru.*', 'kelas_admin.*']) ? 'active' : '' }}">
-                        <a href="#" class='sidebar-link'><i class="bi bi-pencil-square"></i><span>Input Data</span></a>
-                        <ul class="submenu {{ request()->routeIs(['siswa.*', 'guru.*', 'kelas_admin.*']) ? 'active' : '' }}">
-                            <li class="submenu-item {{ request()->routeIs('siswa.*') ? 'active' : '' }} "><a href="{{ route('siswa.index') }}" class="submenu-link">Input Siswa</a></li>
-                            <li class="submenu-item {{ request()->routeIs('guru.*') ? 'active' : '' }} "><a href="{{ route('guru.index') }}" class="submenu-link">Input Guru</a></li>
-                            <li class="submenu-item {{ request()->routeIs('kelas_admin.*') ? 'active' : '' }} "><a href="{{route('kelas_admin.index')}}" class="submenu-link">Input Kelas</a></li>
-                        </ul>
-                    </li>
-                    {{-- PEMBELAJARAN (TERBATAS) --}}
-                    <li class="sidebar-item has-sub {{ request()->routeIs(['e_learning.*', 'jawaban-siswa.*', 'nilai.*']) ? 'active' : '' }}">
-                        <a href="#" class='sidebar-link'><i class="bi bi-journal-bookmark-fill"></i><span>Akademik</span></a>
-                        <ul class="submenu {{ request()->routeIs(['e_learning.*', 'jawaban-siswa.*', 'nilai.*']) ? 'active' : '' }}">
-                            <li class="submenu-item {{ request()->routeIs('e_learning.*') ? 'active' : '' }} "><a href="{{route('e_learning.index')}}" class="submenu-link">Tugas & Materi</a></li>
-                            <li class="submenu-item {{ request()->routeIs('jawaban-siswa.*') ? 'active' : '' }}"><a href="{{ route('jawaban-siswa.index') }}" class="submenu-link">Jawaban Siswa</a></li>
-                            <li class="submenu-item {{ request()->routeIs('nilai.*') ? 'active' : '' }} "><a href="{{route('nilai.index')}}" class="submenu-link">Nilai Siswa</a></li>
-                        </ul>
-                    </li>
-                    
-                    {{-- KEUANGAN --}}
-                    <li class="sidebar-item has-sub {{ request()->routeIs(['tagihan-spp.*', 'laporan-keuangan.*']) ? 'active' : '' }}">
-                        <a href="#" class='sidebar-link'><i class="bi bi-wallet-fill"></i><span>Keuangan</span></a>
-                        <ul class="submenu {{ request()->routeIs(['tagihan-spp.*', 'laporan-keuangan.*']) ? 'active' : '' }}">
-                            <li class="submenu-item {{ request()->routeIs('tagihan-spp.*') ? 'active' : '' }}"><a href="{{ route('tagihan-spp.index') }}" class="submenu-link">Input Tagihan SPP</a></li>
-                            <li class="submenu-item {{ request()->routeIs('laporan-keuangan.*') ? 'active' : '' }}"><a href="{{ route('laporan-keuangan.index') }}" class="submenu-link">Laporan Keuangan</a></li>
-                        </ul>
-                    </li>
-                
-                {{-- ========================================================== --}}
-                {{--                          MENU GURU                         --}}
-                {{-- ========================================================== --}}
+                        <li class="sidebar-title">Admin Menu</li>
+                        {{-- INPUT DATA OPERASIONAL --}}
+                        <li class="sidebar-item has-sub {{ request()->routeIs(['siswa.*', 'guru.*', 'kelas_admin.*']) ? 'active' : '' }}">
+                            <a href="#" class='sidebar-link'><i class="bi bi-pencil-square"></i><span>Input Data</span></a>
+                            <ul class="submenu {{ request()->routeIs(['siswa.*', 'guru.*', 'kelas_admin.*']) ? 'active' : '' }}">
+                                <li class="submenu-item {{ request()->routeIs('siswa.*') ? 'active' : '' }} "><a href="{{ route('siswa.index') }}" class="submenu-link">Input Siswa</a></li>
+                                <li class="submenu-item {{ request()->routeIs('guru.*') ? 'active' : '' }} "><a href="{{ route('guru.index') }}" class="submenu-link">Input Guru</a></li>
+                                <li class="submenu-item {{ request()->routeIs('kelas_admin.*') ? 'active' : '' }} "><a href="{{route('kelas_admin.index')}}" class="submenu-link">Input Kelas</a></li>
+                            </ul>
+                        </li>
+                        {{-- PEMBELAJARAN (TERBATAS) --}}
+                        <li class="sidebar-item has-sub {{ request()->routeIs(['e_learning.*', 'jawaban-siswa.*', 'nilai.*']) ? 'active' : '' }}">
+                            <a href="#" class='sidebar-link'><i class="bi bi-journal-bookmark-fill"></i><span>Akademik</span></a>
+                            <ul class="submenu {{ request()->routeIs(['e_learning.*', 'jawaban-siswa.*', 'nilai.*']) ? 'active' : '' }}">
+                                <li class="submenu-item {{ request()->routeIs('e_learning.*') ? 'active' : '' }} "><a href="{{route('e_learning.index')}}" class="submenu-link">Tugas & Materi</a></li>
+                                <li class="submenu-item {{ request()->routeIs('jawaban-siswa.*') ? 'active' : '' }}"><a href="{{ route('jawaban-siswa.index') }}" class="submenu-link">Jawaban Siswa</a></li>
+                                <li class="submenu-item {{ request()->routeIs('nilai.*') ? 'active' : '' }} "><a href="{{route('nilai.index')}}" class="submenu-link">Nilai Siswa</a></li>
+                                <li class="submenu-item {{ request()->routeIs('raports.*') ? 'active' : '' }} "><a href="{{route('raports.index')}}"
+                                    class="submenu-link">Raport</a></li>
+                            </ul>
+                        </li>
+
+                        {{-- KEUANGAN --}}
+                        <li class="sidebar-item has-sub {{ request()->routeIs(['tagihan-spp.*', 'laporan-keuangan.*']) ? 'active' : '' }}">
+                            <a href="#" class='sidebar-link'><i class="bi bi-wallet-fill"></i><span>Keuangan</span></a>
+                            <ul class="submenu {{ request()->routeIs(['tagihan-spp.*', 'laporan-keuangan.*']) ? 'active' : '' }}">
+                                <li class="submenu-item {{ request()->routeIs('tagihan-spp.*') ? 'active' : '' }}"><a href="{{ route('tagihan-spp.index') }}" class="submenu-link">Input Tagihan SPP</a></li>
+                                <li class="submenu-item {{ request()->routeIs('laporan-keuangan.*') ? 'active' : '' }}"><a href="{{ route('laporan-keuangan.index') }}" class="submenu-link">Laporan Keuangan</a></li>
+                            </ul>
+                        </li>
+
+                    {{-- ========================================================== --}}
+                    {{--                          MENU GURU                         --}}
+                    {{-- ========================================================== --}}
                 @elseif (strtolower(auth()->user()->role) === 'guru')
-                    <li class="sidebar-title">Menu Guru</li>
-                    <li class="sidebar-item has-sub {{ request()->routeIs(['e_learning.*', 'jawaban-siswa.*', 'nilai.*']) ? 'active' : '' }}">
-                        <a href="#" class='sidebar-link'><i class="bi bi-journal-bookmark-fill"></i><span>Pembelajaran</span></a>
-                        <ul class="submenu {{ request()->routeIs(['e_learning.*', 'jawaban-siswa.*', 'nilai.*']) ? 'active' : '' }}">
-                            <li class="submenu-item {{ request()->routeIs('e_learning.*') ? 'active' : '' }}"><a href="{{ route('e_learning.index') }}" class="submenu-link">Kelola Materi & Tugas</a></li>
-                            <li class="submenu-item {{ request()->routeIs('jawaban-siswa.*') ? 'active' : '' }}"><a href="{{ route('jawaban-siswa.index') }}" class="submenu-link">Jawaban Siswa</a></li>
-                            <li class="submenu-item {{ request()->routeIs('nilai.*') ? 'active' : '' }}"><a href="{{ route('nilai.index') }}" class="submenu-link">Input Nilai</a></li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item {{ request()->routeIs('absensi_siswa.*') ? 'active' : '' }}">
-                        <a href="{{ route('absensi_siswa.index') }}" class='sidebar-link'><i class="bi bi-person-check-fill"></i><span>Absensi Siswa</span></a>
-                    </li>
-                    <li class="sidebar-item {{ request()->routeIs('siswa.index') ? 'active' : '' }}">
-                        <a href="{{ route('siswa.index') }}" class='sidebar-link'><i class="bi bi-people-fill"></i><span>Data Siswa</span></a>
-                    </li>
-                
-                {{-- ========================================================== --}}
-                {{--                          MENU SISWA                        --}}
-                {{-- ========================================================== --}}
+                        <li class="sidebar-title">Menu Guru</li>
+                        <li class="sidebar-item has-sub {{ request()->routeIs(['e_learning.*', 'jawaban-siswa.*', 'nilai.*']) ? 'active' : '' }}">
+                            <a href="#" class='sidebar-link'><i class="bi bi-journal-bookmark-fill"></i><span>Pembelajaran</span></a>
+                            <ul class="submenu {{ request()->routeIs(['e_learning.*', 'jawaban-siswa.*', 'nilai.*']) ? 'active' : '' }}">
+                                <li class="submenu-item {{ request()->routeIs('e_learning.*') ? 'active' : '' }}"><a href="{{ route('e_learning.index') }}" class="submenu-link">Kelola Materi & Tugas</a></li>
+                                <li class="submenu-item {{ request()->routeIs('jawaban-siswa.*') ? 'active' : '' }}"><a href="{{ route('jawaban-siswa.index') }}" class="submenu-link">Jawaban Siswa</a></li>
+                                <li class="submenu-item {{ request()->routeIs('nilai.*') ? 'active' : '' }}"><a href="{{ route('nilai.index') }}" class="submenu-link">Input Nilai</a></li>
+                                <li class="submenu-item {{ request()->routeIs('raports.*') ? 'active' : '' }} "><a href="{{route('raports.index')}}"
+                                        class="submenu-link">Raport</a></li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item {{ request()->routeIs('absensi_siswa.*') ? 'active' : '' }}">
+                            <a href="{{ route('absensi_siswa.index') }}" class='sidebar-link'><i class="bi bi-person-check-fill"></i><span>Absensi Siswa</span></a>
+                        </li>
+                        <li class="sidebar-item {{ request()->routeIs('siswa.index') ? 'active' : '' }}">
+                            <a href="{{ route('siswa.index') }}" class='sidebar-link'><i class="bi bi-people-fill"></i><span>Data Siswa</span></a>
+                        </li>
+
+                    {{-- ========================================================== --}}
+                    {{--                          MENU SISWA                        --}}
+                    {{-- ========================================================== --}}
                 @elseif (strtolower(auth()->user()->role) === 'murid')
                     <li class="sidebar-title">Menu Siswa</li>
                     <li class="sidebar-item {{ request()->routeIs('siswa.elearning.*') ? 'active' : '' }}">

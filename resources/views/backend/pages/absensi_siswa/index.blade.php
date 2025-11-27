@@ -19,7 +19,7 @@
             <div class="page-content">
                 <div class="card">
                     <div class="card-body">
-                         <div class="table-responsive">
+                        <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -66,7 +66,7 @@
             </div>
             <div class="page-content">
                 <div class="card">
-                    <div class="card-header"><h4>Filter Rekap</h4></div>
+                    <div class="card-header pb-2"><h4>Filter Rekap</h4></div>
                     <div class="card-body">
                         <form method="GET" action="{{ route('absensi_siswa.index') }}">
                             <div class="row align-items-end">
@@ -94,7 +94,7 @@
 
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                       <h5>Hasil Rekapitulasi</h5>
+                    <h5>Hasil Rekapitulasi</h5>
                         <a href="{{ route('absensi_siswa.create') }}" class="btn btn-primary">Input Absensi Baru</a>
                     </div>
                     <div class="card-body">
@@ -135,7 +135,7 @@
                                 </tbody>
                             </table>
                         </div>
-                         {{ $rekapAbsensi->appends(request()->query())->links() }}
+                        {{ $rekapAbsensi->appends(request()->query())->links() }}
                     </div>
                 </div>
             </div>

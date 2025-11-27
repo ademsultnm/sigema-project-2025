@@ -29,7 +29,10 @@ class GuruController extends Controller
             return $q->where('jenjang', $jenjang);
         });
 
-        $gurus = $query->latest()->paginate(10);
+        // ambil hasil dengan paginasi dan urutkan berdasarkan data terbaru
+        // $gurus = $query->latest()->paginate(10);
+        // ambil hasil dengan paginasi dan urutan berdasarkan data lama berada diatas sendiri
+        $gurus = $query->oldest()->paginate(10);
 
         return view('backend.pages.guru.index', compact('gurus'));
     }
@@ -93,8 +96,8 @@ class GuruController extends Controller
     
     public function show(Guru $guru)
     {
-         $guru->load('user');
-         return view('backend.pages.guru.show', compact('guru'));
+        $guru->load('user');
+        return view('backend.pages.guru.show', compact('guru'));
     }
 
     public function edit(Guru $guru)
@@ -145,7 +148,7 @@ class GuruController extends Controller
                     }
                     $user->save();
                 } else {
-                     if ($request->filled('password') && $request->filled('email')) {
+                    if ($request->filled('password') && $request->filled('email')) {
                         User::create([
                             'name' => $request->nama,
                             'email' => $request->email,

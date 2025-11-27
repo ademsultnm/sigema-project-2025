@@ -31,13 +31,13 @@
                                     value="{{ $admin->email }}" readonly>
                             </div>
 
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label for="role">Role</label>
                                 <input type="text" class="form-control" id="role"
                                     value="{{ $admin->role }}" readonly>
                             </div>
 
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label for="created_at">Tanggal Dibuat</label>
                                 <input type="text" class="form-control" id="created_at"
                                     value="{{ $admin->created_at->format('d F Y H:i') }}" readonly>

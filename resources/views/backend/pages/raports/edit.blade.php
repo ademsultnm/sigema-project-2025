@@ -31,10 +31,21 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="semester">Semester:</label>
                                     <input type="text" name="semester" id="semester" class="form-control"
                                         value="{{ $raport->semester }}" required>
+                                </div> --}}
+
+                                <div class="form-group">
+                                    <label for="semester">Semester:</label>
+                                    <select name="keterangan" id="keterangan" class="form-control"  required>
+                                        <option value="{{ $raport->semester }}">-- Pilih Keterangan --</option>
+                                        <option value="Lulus">Lulus</option>
+                                        <option value="Tidak Lulus">Tidak Lulus</option>
+                                        <option value="Pending">Pending</option>
+                                    </select>
+
                                 </div>
                                 <div class="form-group">
                                     <label for="tahun_ajaran">Tahun Ajaran:</label>
@@ -46,11 +57,22 @@
                                     <input type="number" name="rata_rata_nilai" id="rata_rata_nilai" class="form-control"
                                         value="{{ $raport->rata_rata_nilai }}" required>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="keterangan">Keterangan:</label>
                                     <input type="text" name="keterangan" id="keterangan" class="form-control"
                                         value="{{ $raport->keterangan }}" required>
+                                </div> --}}
+
+                                <div class="form-group">
+                                    <label for="keterangan">Keterangan:</label>
+                                    <select name="keterangan" id="keterangan" class="form-control" required>
+                                        <option value="">-- Pilih Keterangan --</option>
+                                        <option value="Lulus">Lulus</option>
+                                        <option value="Tidak Lulus">Tidak Lulus</option>
+                                        <option value="Pending">Pending</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="jenjang">Jenjang:</label>
                                     <select name="jenjang" id="jenjang" class="form-control">
@@ -61,6 +83,8 @@
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update</button>
+                                <a href="{{ route('raports.index') }}" class="btn btn-secondary ml-2">Batal</a>
+
                             </form>
                         </div>
                     </div>

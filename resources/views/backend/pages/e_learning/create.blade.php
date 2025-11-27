@@ -45,7 +45,7 @@
                                 <div class="form-group">
                                     <label for="mata_pelajaran_id">Mata Pelajaran</label>
                                     <select class="form-control" id="mata_pelajaran_id" name="mata_pelajaran_id" required>
-                                         <option value="" disabled selected>-- Pilih Mata Pelajaran --</option>
+                                        <option value="" disabled selected>-- Pilih Mata Pelajaran --</option>
                                         @foreach ($mataPelajarans as $mataPelajaran)
                                             <option value="{{ $mataPelajaran->id }}" {{ old('mata_pelajaran_id') == $mataPelajaran->id ? 'selected' : '' }}>{{ $mataPelajaran->nama }}</option>
                                         @endforeach

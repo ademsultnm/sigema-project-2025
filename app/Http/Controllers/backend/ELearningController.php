@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 
+
 class ELearningController extends Controller
 {
     public function index()
@@ -18,6 +19,24 @@ class ELearningController extends Controller
         // Eager load semua relasi yang dibutuhkan
         $eLearnings = ELearning::with(['guru', 'mataPelajaran', 'kelas'])->latest()->paginate(10);
         return view('backend.pages.e_learning.index', compact('eLearnings'));
+
+        // tampilan tugas hanya untuk akun yang login sebagai guru
+        // $user = auth()->user();
+
+        // // jika role = guru -> filter berdasarkan guru_id
+        // if ($user->role === 'guru') {
+        //     $elearnings = Elearning::with(['guru', 'mataPelajaran', 'kelas'])
+        //         ->where('guru_id', $user->guru_id)
+        //         ->oldest()
+        //         ->paginate(10);
+        // } else {
+        //     // selain guru, tampilkan semua data elearning
+        //     $elearnings = Elearning::with(['guru', 'mataPelajaran', 'kelas'])
+        //         ->oldest()
+        //         ->paginate(10);
+        // }
+
+        // return view('backend.pages.e_learning.index', compact('elearnings'));
     }
 
     public function create()
@@ -26,6 +45,10 @@ class ELearningController extends Controller
         $mataPelajarans = MataPelajaran::all();
         $kelas = Kelas::orderBy('nama')->get(); // Ambil data kelas untuk form
         return view('backend.pages.e_learning.create', compact('gurus', 'mataPelajarans', 'kelas'));
+
+        // perbaikan method create
+        // $user = auth()->user();
+        // $gurus = ($user->role === 'guru') ? Guru::where('id', $user->guru_id)->get() : Guru::all();
     }
 
     public function store(Request $request)
