@@ -1,36 +1,37 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\backend\AbsensiGuruController;
-use App\Http\Controllers\backend\AbsensiSiswaController;
-use App\Http\Controllers\backend\ELearningController;
 use App\Http\Controllers\backend\GuruController;
-use App\Http\Controllers\backend\AdminController;
+use App\Http\Controllers\backend\SoalController;
 use App\Http\Controllers\backend\StafController;
 use App\Http\Controllers\backend\WakaController;
+use App\Http\Controllers\backend\AdminController;
+use App\Http\Controllers\backend\KelasController;
+use App\Http\Controllers\backend\NilaiController;
+use App\Http\Controllers\backend\SiswaController;
+use App\Http\Controllers\frontend\BlogController;
+use App\Http\Controllers\backend\RaportController;
+use App\Http\Controllers\frontend\AboutController;
+use App\Http\Controllers\frontend\EventController;
 use App\Http\Controllers\backend\JawabanController;
 use App\Http\Controllers\backend\JenjangController;
 use App\Http\Controllers\backend\JurusanController;
-use App\Http\Controllers\backend\KelasController;
-use App\Http\Controllers\backend\MataPelajaranController;
-use App\Http\Controllers\backend\NilaiController;
-use App\Http\Controllers\backend\RaportController;
-use App\Http\Controllers\backend\SiswaController;
-use App\Http\Controllers\backend\SoalController;
-use App\Http\Controllers\backend\TagihanSppController;
-use App\Http\Controllers\backend\SiswaELearningController;
-use App\Http\Controllers\backend\JawabanSiswaController;
-use App\Http\Controllers\backend\LaporanKeuanganController;
 use App\Http\Controllers\backend\SettingController;
-use App\Http\Controllers\backend\JadwalPelajaranController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\frontend\AboutController;
-use App\Http\Controllers\frontend\BlogController;
-use App\Http\Controllers\frontend\ContactController;
 use App\Http\Controllers\frontend\CourseController;
-use App\Http\Controllers\frontend\EventController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\frontend\ContactController;
+use App\Http\Controllers\backend\ELearningController;
+use App\Http\Controllers\backend\TagihanSppController;
+use App\Http\Controllers\backend\AbsensiGuruController;
+use App\Http\Controllers\backend\AbsensiSiswaController;
+use App\Http\Controllers\backend\JawabanSiswaController;
+use App\Http\Controllers\backend\MataPelajaranController;
+use App\Http\Controllers\backend\SiswaELearningController;
+use App\Http\Controllers\backend\JadwalPelajaranController;
+use App\Http\Controllers\backend\LaporanKeuanganController;
 
 Route::get('/', function () {
     return view('frontend.home');
@@ -110,3 +111,4 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/api/kelas/{kelas_id}/siswa', [NilaiController::class, 'getSiswaByKelas'])->name('api.siswa.by.kelas');
 });
 
+Route::get('/pay/{tagihan}', [CheckoutController::class, 'create'])->name('pay.create');

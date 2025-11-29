@@ -20,11 +20,11 @@
                                 @if (session('success'))
                                     <div class="alert alert-success" role="alert">{{ session('success') }}</div>
                                 @endif
-                                 @if (empty($apiKey))
+                                 {{-- @if (empty($apiKey))
                                     <div class="alert alert-light-warning color-warning">
                                         <i class="bi bi-exclamation-triangle"></i> Sistem pembayaran online sedang tidak aktif. Silakan hubungi admin.
                                     </div>
-                                @endif
+                                @endif --}}
 
                                 <div class="table-responsive">
                                     <table class="table table-striped">
@@ -51,9 +51,10 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        @if($tagihan->status == 'Belum Lunas' && !empty($apiKey))
-                                                            {{-- Tombol ini akan mengarah ke API Paydisini --}}
-                                                            <a href="#" class="btn btn-primary btn-sm" onclick="alert('Fitur pembayaran akan diintegrasikan dengan API Paydisini.')">Bayar Sekarang</a>
+                                                        @if($tagihan->status == 'Belum Lunas')
+                                                            <a href="{{ route('pay.create', $tagihan->id) }}" class="btn btn-primary btn-sm">
+                                                                Bayar Sekarang
+                                                            </a>
                                                         @elseif($tagihan->status == 'Lunas')
                                                             -
                                                         @endif
