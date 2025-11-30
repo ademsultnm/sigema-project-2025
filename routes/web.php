@@ -32,6 +32,7 @@ use App\Http\Controllers\backend\MataPelajaranController;
 use App\Http\Controllers\backend\SiswaELearningController;
 use App\Http\Controllers\backend\JadwalPelajaranController;
 use App\Http\Controllers\backend\LaporanKeuanganController;
+use App\Http\Controllers\ChatspotController;
 
 Route::get('/', function () {
     return view('frontend.home');
@@ -112,3 +113,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 });
 
 Route::get('/pay/{tagihan}', [CheckoutController::class, 'create'])->name('pay.create');
+
+Route::post('/chatspot', [ChatSpotController::class, 'handle'])
+    ->middleware('auth');
+
