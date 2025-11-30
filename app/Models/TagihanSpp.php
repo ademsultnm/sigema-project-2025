@@ -28,6 +28,16 @@ class TagihanSpp extends Model
         'jatuh_tempo',
         'status',
         'tahun_ajaran',
+        'payment_status',
+        'external_id',
+        'payment_channel',
+        'payment_date',
+        'raw_callback',
+    ];
+
+     protected $casts = [
+        'payment_date' => 'datetime',
+        'raw_callback' => 'array',
     ];
 
     /**
