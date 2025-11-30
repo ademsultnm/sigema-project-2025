@@ -29,6 +29,202 @@
     {{-- </div> --}}
     <!--scripts-->
     @include('backend.partials.scripts')
+  @if (auth()->check() && strtolower(auth()->user()->role) === 'murid')
+<script>
+    window.CHATSPOT = {
+        user_id: @json(auth()->user()->id),
+        role: @json(auth()->user()->role),
+        name: @json(auth()->user()->name),
+        csrf: '{{ csrf_token() }}'
+    };
+</script>
+
+<style>
+    /* Floating button */
+    #chatspot-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 62px;
+        height: 62px;
+        background-image: url('/images/logo2.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 28px;
+        z-index: 9999;
+        transition: transform .3s ease;
+    }
+    #chatspot-btn:hover {
+        transform: scale(1.1);
+    }
+
+    /* Chat box with smooth animation */
+    #chatspot-box {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 320px;
+        height: 420px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transform: translateY(20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .3s ease, transform .3s ease;
+        z-index: 9999;
+    }
+    #chatspot-box.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    /* Chat bubbles */
+    .bubble-user {
+        background: #dcf2ff;
+        padding: 8px 12px;
+        border-radius: 12px;
+        display: inline-block;
+        margin: 6px 0;
+        max-width: 75%;
+    }
+
+    .bubble-bot {
+        background: #f2f2f2;
+        padding: 8px 12px;
+        border-radius: 12px;
+        display: inline-block;
+        margin: 6px 0;
+        max-width: 75%;
+    }
+
+    /* Chat body spacing */
+    #chat-body {
+        flex: 1;
+        padding: 12px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+</style>
+
+<script>
+    const btn = document.createElement('div');
+    btn.id = "chatspot-btn";
+    btn.innerHTML = '<i class="fa fa-comment"></i>';
+    document.body.appendChild(btn);
+
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'chatspot-close') {
+            box.classList.remove('show');
+        }
+    });
+
+
+    const box = document.createElement('div');
+    box.id = "chatspot-box";
+    box.innerHTML = `
+        <div style="padding:10px; background:#435ebe; color:white; font-weight:bold; 
+                    display:flex; align-items:center;">
+            <span>Gema Ai</span>
+            <button id="chatspot-close" 
+                style="
+                    margin-left:auto;
+                    background:none; 
+                    border:none; 
+                    color:white; 
+                    font-size:22px; 
+                    cursor:pointer;
+                    padding:0 8px;
+                ">
+                ×
+            </button>
+        </div>
+        <div id="chat-body"></div>
+        <div style="padding:10px; display:flex; gap:6px;">
+            <input id="chat-input" type="text" style="flex:1; padding:8px; border-radius:8px; border:1px solid #ccc;" placeholder="Tulis pesan...">
+            <button id="chat-send" class="btn btn-primary btn-sm">Kirim</button>
+        </div>
+    `;
+    document.body.appendChild(box);
+
+    /* Smooth toggle animation */
+    btn.onclick = () => {
+        box.classList.toggle('show');
+    };
+
+    async function sendMsg() {
+        const input = document.getElementById('chat-input');
+        const body = document.getElementById('chat-body');
+        const msg = input.value.trim();
+        if (!msg) return;
+
+        // User bubble
+        body.innerHTML += `
+            <div style="text-align:right;">
+                <span class="bubble-user">${msg}</span>
+            </div>
+        `;
+        body.scrollTop = body.scrollHeight;
+        input.value = '';
+
+        // Loading bubble
+        const loadingId = 'loading-' + Math.random().toString(36).substring(7);
+        body.innerHTML += `
+            <div id="${loadingId}" style="text-align:left;">
+                <span class="bubble-bot" style="color:#666;">...</span>
+            </div>
+        `;
+        body.scrollTop = body.scrollHeight;
+
+        // Send to server
+        const res = await fetch('/chatspot', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': window.CHATSPOT.csrf
+            },
+            body: JSON.stringify({ message: msg })
+        });
+
+        const data = await res.json();
+        document.getElementById(loadingId).remove();
+
+        // Bot bubble
+        body.innerHTML += `
+            <div style="text-align:left;">
+                <span class="bubble-bot">${data.reply}</span>
+            </div>
+        `;
+        body.scrollTop = body.scrollHeight;
+    }
+
+    /* Button click -> send */
+    document.getElementById('chat-send').onclick = sendMsg;
+
+    /* Press Enter -> send */
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const visible = box.classList.contains('show');
+            if (visible) sendMsg();
+        }
+    });
+</script>
+@endif
+
+
 </body>
 
 </html>
