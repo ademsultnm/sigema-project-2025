@@ -13,31 +13,25 @@ class ChatspotService
         return $this->askOllama($message, $user);
     }
 
-    // -------------------------
-    // OLLAMA ini ai nya yuaa
-    // -------------------------
+    // ==========================================================
+    //  OLLAMA LLM — ini ai nya
+    // ==========================================================
     private function askOllama(string $prompt, User $user): string
-{
-    try {
-        $intent = $this->detectIntent($prompt);
+    {
+        try {
+            $intent = $this->detectIntent($prompt);
 
-        $siswa = DB::table('siswa')->where('id', $user->siswa_id)->first();
-        $kelas = DB::table('kelas_siswa')
-            ->join('kelas', 'kelas.id', 'kelas_siswa.kelas_id')
-            ->where('siswa_id', $user->siswa_id)
-            ->orderBy('tahun_ajaran', 'desc')
-            ->value('kelas.nama');
+            // ---------------------------
+            // Info siswa dan kelas
+            // ---------------------------
+            $kelas = DB::table('kelas_siswa')
+                ->join('kelas', 'kelas.id', '=', 'kelas_siswa.kelas_id')
+                ->where('siswa_id', $user->siswa_id)
+                ->orderBy('tahun_ajaran', 'desc')
+                ->value('kelas.nama');
 
-        // ================================================
-        // 1) SIAPKAN INFO SPP JIKA INTENT = 'spp'
-        // ================================================
-        $sppInfo = "Tidak relevan.";
-        if ($intent === 'spp') {
-
-            if (!$user->siswa_id) {
-                $sppInfo = "User belum terhubung sebagai siswa.";
-            } else {
-
+            $sppInfo = "Tidak relevan.";
+            if ($intent === 'spp' && $user->siswa_id) {
                 $tagihan = DB::table('tagihan_spp')
                     ->where('siswa_id', $user->siswa_id)
                     ->where('status', 'Belum Lunas')
@@ -55,24 +49,16 @@ class ChatspotService
                     })->join("\n");
                 }
             }
-        }
 
-        // ================================================
-        // 2) SIAPKAN INFO TUGAS JIKA INTENT = 'task'
-        // ================================================
-        $taskInfo = "Tidak relevan.";
-        if ($intent === 'task') {
-
-            if (!$user->siswa_id) {
-                $taskInfo = "User belum terdaftar sebagai siswa.";
-            } else {
+            $taskInfo = "Tidak relevan.";
+            if ($intent === 'task' && $user->siswa_id) {
                 $kelasIds = DB::table('kelas_siswa')
                     ->where('siswa_id', $user->siswa_id)
                     ->orderBy('tahun_ajaran', 'desc')
                     ->pluck('kelas_id');
 
                 if ($kelasIds->isEmpty()) {
-                    $taskInfo = "Tidak ada kelas yang aktif.";
+                    $taskInfo = "Tidak ada kelas aktif.";
                 } else {
                     $tasks = DB::table('e_learning')
                         ->join('e_learning_kelas', 'e_learning.id', '=', 'e_learning_kelas.e_learning_id')
@@ -80,7 +66,7 @@ class ChatspotService
                         ->where('e_learning.tipe', 'tugas')
                         ->where(function ($q) {
                             $q->whereNull('e_learning.batas_waktu')
-                            ->orWhere('e_learning.batas_waktu', '>=', now());
+                                ->orWhere('e_learning.batas_waktu', '>=', now());
                         })
                         ->orderBy('e_learning.batas_waktu', 'asc')
                         ->select('e_learning.judul', 'e_learning.batas_waktu')
@@ -98,15 +84,14 @@ class ChatspotService
                     }
                 }
             }
-        }
 
-        // ================================================
-        // 3) SISTEM PROMPT
-        // ================================================
-        $system = "
-Kamu adalah GemaAI, asisten AI untuk siswa.
-Kamu **WAJIB** menjawab 100% dalam bahasa Indonesia, dengan gaya santai, sopan, dan mudah dipahami.
-Jangan gunakan bahasa Inggris kecuali menyebut nama atau istilah asing.
+            // ======================================================
+            // SYSTEM PROMPT — bahasa Indonesia wajib + data konteks
+            // ======================================================
+            $system = "
+Kamu adalah GemaAI, asisten AI untuk siswa sekolah.
+Kamu WAJIB menjawab 100% dalam bahasa Indonesia dengan gaya santai, sopan, dan jelas.
+Jangan menggunakan bahasa Inggris kecuali untuk nama atau istilah asing.
 Jangan mengarang data.
 
 Informasi siswa:
@@ -114,8 +99,7 @@ Informasi siswa:
 - Peran: {$user->role}
 - Kelas: " . ($kelas ?: 'Tidak diketahui') . "
 
-Informasi tambahan:
-- Intent pengguna: {$intent}
+Intent pengguna: {$intent}
 
 Jika intent = 'spp', gunakan data berikut:
 {$sppInfo}
@@ -123,51 +107,41 @@ Jika intent = 'spp', gunakan data berikut:
 Jika intent = 'task', gunakan data berikut:
 {$taskInfo}
 
-Jika intent = general, jawab singkat dan arahkan kembali ke topik sekolah.
+Jika intent = 'general':
+- Jawab singkat, relevan, dan tetap arahkan percakapan ke hal-hal sekolah.
 ";
 
-        // ================================================
-        // 4) OLLAMA REQUEST
-        // ================================================
-        $response = Http::post('http://localhost:11434/api/generate', [
-            'model' => 'llama3',
-            'prompt' => $system . "\nUser: {$prompt}\nChatSpot:",
-            'stream' => false,
-        ]);
+            $response = Http::post('http://localhost:11434/api/generate', [
+                'model' => 'llama3',
+                'prompt' => $system . "\nUser: {$prompt}\nAI:",
+                'stream' => false,
+            ]);
 
-        if ($response->failed()) {
-            return "AI sedang tidak dapat diakses.";
+            if ($response->failed()) {
+                return "GemaAI sedang tidak dapat diakses.";
+            }
+
+            return $response->json('response') ?? "AI tidak memberikan respon.";
+
+        } catch (\Exception $e) {
+            return "Terjadi kesalahan AI: " . $e->getMessage();
         }
-
-        return $response->json('response') ?? "Tidak ada respon dari AI.";
-
-    } catch (\Exception $e) {
-        return "AI error: " . $e->getMessage();
     }
-}
 
-
-
-
-    // -------------------------
-    // INTENT DETECTOR
-    // -------------------------
     private function detectIntent(string $msg): string
     {
         $msg = strtolower($msg);
 
-        // SPP intent
         $sppWords = ['spp', 'bayar', 'tagihan', 'tunggakan', 'payment', 'pembayaran'];
-        foreach ($sppWords as $word) {
-            if (str_contains($msg, $word)) {
+        foreach ($sppWords as $w) {
+            if (str_contains($msg, $w)) {
                 return 'spp';
             }
         }
 
-        // Tugas intent
         $taskWords = ['tugas', 'pr', 'penugasan', 'deadline', 'pekerjaan rumah'];
-        foreach ($taskWords as $word) {
-            if (str_contains($msg, $word)) {
+        foreach ($taskWords as $w) {
+            if (str_contains($msg, $w)) {
                 return 'task';
             }
         }
