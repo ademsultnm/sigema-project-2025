@@ -16,20 +16,19 @@ class Siswa extends Model
         'tanggal_lahir',
         'alamat',
         'jenjang',
+        // 'kelas_id' dihapus karena pakai tabel perantara
     ];
 
-    /**
-     * Mendefinisikan relasi "hasOne" ke model User.
-     * Satu Siswa memiliki satu Akun User.
-     */
-   
-     public function user()
+    public function user()
     {
         return $this->hasOne(User::class, 'siswa_id');
     }
 
+    // Gunakan belongsToMany
     public function kelas()
     {
-        return $this->belongsToMany(Kelas::class, 'kelas_siswa')->withPivot('tahun_ajaran')->withTimestamps();
+        return $this->belongsToMany(Kelas::class, 'kelas_siswa', 'siswa_id', 'kelas_id')
+                    ->withPivot('tahun_ajaran')
+                    ->withTimestamps();
     }
 }

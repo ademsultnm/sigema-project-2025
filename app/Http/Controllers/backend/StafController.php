@@ -17,7 +17,7 @@ class StafController extends Controller
     {
         $users = User::where(function ($query) {
                         $query->whereRaw('LOWER(role) = ?', [$this->roleNameLowercase])
-                              ->orWhereRaw('LOWER(role) = ?', ['staf']);
+                            ->orWhereRaw('LOWER(role) = ?', ['staf']);
                     })->latest()->paginate(10);
         // Ganti nama variabel agar lebih jelas dan sesuai dengan view
         return view('backend.pages.staf.index', ['stafkeuangans' => $users]);

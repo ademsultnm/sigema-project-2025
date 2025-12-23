@@ -44,11 +44,11 @@ class ELearning extends Model
     {
         return $this->belongsTo(MataPelajaran::class, 'mata_pelajaran_id');
     }
-     public function kelas()
+    public function kelas()
     {
         return $this->belongsToMany(Kelas::class, 'e_learning_kelas');
     }
-      public function pengumpulanTugas()
+    public function pengumpulanTugas()
     {
         return $this->hasMany(PengumpulanTugas::class);
     }

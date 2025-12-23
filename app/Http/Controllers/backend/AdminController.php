@@ -55,9 +55,9 @@ class AdminController extends Controller
     public function show(User $admin)
     {
         // FIX: Menggunakan strtolower untuk perbandingan case-insensitive
-        if (strtolower($admin->role) !== 'admin') {
-            abort(404);
-        }
+        // if (strtolower($admin->role) !== 'admin') {
+        //     abort(404);
+        // }
         return view('backend.pages.admin.show', compact('admin'));
     }
 
@@ -67,9 +67,9 @@ class AdminController extends Controller
     public function edit(User $admin)
     {
         // FIX: Menggunakan strtolower untuk perbandingan case-insensitive
-        if (strtolower($admin->role) !== 'admin') {
-            abort(404);
-        }
+        // if (strtolower($admin->role) !== 'admin') {
+        //     abort(404);
+        // }
         return view('backend.pages.admin.edit', compact('admin'));
     }
 
@@ -79,9 +79,9 @@ class AdminController extends Controller
     public function update(Request $request, User $admin)
     {
         // FIX: Menggunakan strtolower untuk perbandingan case-insensitive
-        if (strtolower($admin->role) !== 'admin') {
-            abort(404);
-        }
+        // if (strtolower($admin->role) !== 'admin') {
+        //     abort(404);
+        // }
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -105,9 +105,9 @@ class AdminController extends Controller
     public function destroy(User $admin)
     {
         // FIX: Menggunakan strtolower untuk perbandingan case-insensitive
-        if (strtolower($admin->role) !== 'admin') {
-            abort(404);
-        }
+        // if (strtolower($admin->role) !== 'admin') {
+        //     abort(404);
+        // }
 
         // Mencegah user menghapus akunnya sendiri
         if (auth()->id() == $admin->id) {

@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
 @section('title')
-    Login
+Login
 @endsection
 
 @section('content')
-<div class="container mt-4">
+    <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
             <div class="card login-card">
                 <div class="card-body">
-                    
-                   
+
+
                     <div class="text-center mb-4">
                         <img src="{{ asset('images/logo2.png') }}" alt="Logo " width="150">
-                      
+
                     </div>
 
                     <h3 class="text-center login-card-title">Selamat Datang Kembali</h3>
@@ -37,11 +37,11 @@
 
                         {{-- Input Password dengan Ikon --}}
                         <div class="mb-3">
-                             <div class="input-group">
+                                <div class="input-group">
                                 <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
-                             </div>
-                             @error('password')
+                                </div>
+                                @error('password')
                                 <span class="invalid-feedback d-block" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -67,11 +67,18 @@
                                 {{ __('Login') }}
                             </button>
                         </div>
-                        
-                        @if (Route::has('register'))
+
+                        {{-- Daftar Akun / register --}}
+                        {{-- @if (Route::has('register'))
                         <p class="text-center auth-links">
                             Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a>
                         </p>
+                        @endif --}}
+
+                        @if (Route::has('register'))
+                            <p class="text-center auth-links">
+                                Belum punya akun? <b>Silahkan Ke Ruang TU.</b>
+                            </p>
                         @endif
 
                     </form>
@@ -79,5 +86,5 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
 @endsection

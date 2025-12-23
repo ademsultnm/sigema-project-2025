@@ -13,18 +13,31 @@ use Illuminate\Support\Facades\DB;
 
 class ELearningController extends Controller
 {
-    public function index()
+    // UPDATE: Tambahkan Request $request untuk menangkap input filter
+    public function index(Request $request)
     {
-        // Eager load semua relasi yang dibutuhkan
-        $eLearnings = ELearning::with(['guru', 'mataPelajaran', 'kelas'])->latest()->paginate(10);
-        return view('backend.pages.e_learning.index', compact('eLearnings'));
+        // 1. Siapkan Query Dasar dengan Eager Loading
+        $query = ELearning::with(['guru', 'mataPelajaran', 'kelas']);
+
+        // 2. Logika Filter Berdasarkan Guru
+        if ($request->has('guru_id') && $request->guru_id != '') {
+            $query->where('guru_id', $request->guru_id);
+        }
+
+        // 3. Eksekusi Query
+        $eLearnings = $query->latest()->paginate(10);
+
+        // 4. Ambil Data Guru untuk Dropdown Filter (Urut Abjad)
+        $gurus = Guru::orderBy('nama', 'asc')->get();
+
+        return view('backend.pages.e_learning.index', compact('eLearnings', 'gurus'));
     }
 
     public function create()
     {
         $gurus = Guru::all();
         $mataPelajarans = MataPelajaran::all();
-        $kelas = Kelas::orderBy('nama')->get(); // Ambil data kelas untuk form
+        $kelas = Kelas::orderBy('nama')->get(); 
         return view('backend.pages.e_learning.create', compact('gurus', 'mataPelajarans', 'kelas'));
     }
 
@@ -33,8 +46,8 @@ class ELearningController extends Controller
         $request->validate([
             'guru_id' => 'required|exists:guru,id',
             'mata_pelajaran_id' => 'required|exists:mata_pelajaran,id',
-            'kelas_ids' => 'required|array', // Validasi input kelas harus array
-            'kelas_ids.*' => 'exists:kelas,id', // Validasi setiap item dalam array kelas
+            'kelas_ids' => 'required|array', 
+            'kelas_ids.*' => 'exists:kelas,id', 
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'jenjang' => 'required|in:SMP,SMA',
@@ -74,7 +87,7 @@ class ELearningController extends Controller
 
     public function show(ELearning $eLearning)
     {
-        $eLearning->load('kelas'); // Muat relasi kelas
+        $eLearning->load('kelas'); 
         return view('backend.pages.e_learning.show', compact('eLearning'));
     }
 
@@ -83,7 +96,7 @@ class ELearningController extends Controller
         $gurus = Guru::all();
         $mataPelajarans = MataPelajaran::all();
         $kelas = Kelas::orderBy('nama')->get();
-        $eLearning->load('kelas'); // Muat kelas yang sudah terhubung
+        $eLearning->load('kelas'); 
         return view('backend.pages.e_learning.edit', compact('eLearning', 'gurus', 'mataPelajarans', 'kelas'));
     }
 
@@ -117,11 +130,11 @@ class ELearningController extends Controller
             // 1. Update data E-Learning
             $eLearning->update($data);
 
-            // 2. Sinkronkan kelas yang dipilih (otomatis menambah/menghapus relasi)
+            // 2. Sinkronkan kelas
             if (!empty($request->kelas_ids)) {
                 $eLearning->kelas()->sync($request->kelas_ids);
             } else {
-                $eLearning->kelas()->detach(); // Hapus semua relasi jika tidak ada kelas yang dipilih
+                $eLearning->kelas()->detach(); 
             }
 
             DB::commit();
@@ -137,7 +150,7 @@ class ELearningController extends Controller
     {
         try {
             DB::beginTransaction();
-            $eLearning->kelas()->detach(); // Hapus relasi di pivot table dulu
+            $eLearning->kelas()->detach(); 
             $eLearning->delete();
             DB::commit();
             return redirect()->route('e_learning.index')->with('success', 'E-Learning berhasil dihapus.');
@@ -149,7 +162,6 @@ class ELearningController extends Controller
 
     public function download(ELearning $eLearning)
     {
-        // ... (fungsi download tetap sama) ...
         if (!$eLearning->file_data || !$eLearning->file_name) {
             abort(404, 'File tidak ditemukan.');
         }
@@ -164,4 +176,3 @@ class ELearningController extends Controller
         return Response::make($fileContent, 200, $headers);
     }
 }
-

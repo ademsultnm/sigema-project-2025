@@ -23,4 +23,7 @@ class Raport extends Model
     {
         return $this->belongsTo(Siswa::class);
     }
+    public function mataPelajaran() {
+    return $this->belongsTo(MataPelajaran::class, 'mata_pelajaran_id');
+}
 }

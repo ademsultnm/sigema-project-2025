@@ -4,13 +4,10 @@
 
         <div class="footer-brand">
 
-            <a href="#" class="logo">SMA Gema 45</a>
+            <a href="#" class="logo">SMA GEMA 45</a>
 
             <p class="section-text">
-                It is a long established fact that a reader will be distracted by the readable content of a page
-                when
-                looking at its
-                layout. The point of using Lorem Ipsum.
+                Sekolah berwawasan kebangsaan di Surabaya dibawah naungan Yayasan Perjuangan 45 Provinsi Jawa Timur. 
             </p>
 
             <ul class="social-list">
@@ -46,14 +43,14 @@
         <ul class="footer-list">
 
             <li>
-                <p class="footer-list-title">Explore</p>
+                <p class="footer-list-title">Jelajahi</p>
             </li>
 
             <li>
                 <a href="#" class="footer-link">
                     <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
-                    <span class="span">About Us</span>
+                    <span class="span">Tentang Kami</span>
                 </a>
             </li>
 
@@ -61,7 +58,7 @@
                 <a href="#" class="footer-link">
                     <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
-                    <span class="span">Upcoming Events</span>
+                    <span class="span">Kegiatan Mendatang</span>
                 </a>
             </li>
 
@@ -69,7 +66,7 @@
                 <a href="#" class="footer-link">
                     <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
-                    <span class="span">Blog & News</span>
+                    <span class="span">Berita</span>
                 </a>
             </li>
 
@@ -77,7 +74,7 @@
                 <a href="#" class="footer-link">
                     <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
-                    <span class="span">FAQ Question</span>
+                    <span class="span">FAQ</span>
                 </a>
             </li>
 
@@ -85,7 +82,7 @@
                 <a href="#" class="footer-link">
                     <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
-                    <span class="span">Testimonial</span>
+                    <span class="span">Pendapat Mereka</span>
                 </a>
             </li>
 
@@ -102,14 +99,14 @@
         <ul class="footer-list">
 
             <li>
-                <p class="footer-list-title">Useful Links</p>
+                <p class="footer-list-title">Akses Link</p>
             </li>
 
             <li>
                 <a href="#" class="footer-link">
                     <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
-                    <span class="span">Contact Us</span>
+                    <span class="span">Kontak / Narahubung</span>
                 </a>
             </li>
 
@@ -117,7 +114,7 @@
                 <a href="#" class="footer-link">
                     <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
-                    <span class="span">Pricing Plan</span>
+                    <span class="span">Informasi Pendaftaran</span>
                 </a>
             </li>
 
@@ -125,7 +122,7 @@
                 <a href="#" class="footer-link">
                     <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
-                    <span class="span">Instructor Profile</span>
+                    <span class="span">Profil Tenaga Pengajar</span>
                 </a>
             </li>
 
@@ -137,54 +134,54 @@
                 </a>
             </li>
 
-            <li>
+            {{-- <li>
                 <a href="#" class="footer-link">
                     <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
                     <span class="span">Popular Courses</span>
                 </a>
-            </li>
+            </li> --}}
 
-            <li>
+            {{-- <li>
                 <a href="#" class="footer-link">
                     <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
 
                     <span class="span">Terms & Conditions</span>
                 </a>
-            </li>
+            </li> --}}
 
         </ul>
 
         <ul class="footer-list">
 
             <li>
-                <p class="footer-list-title">Contact Info</p>
+                <p class="footer-list-title">Informasi Instansi</p>
             </li>
 
             <li class="footer-item">
                 <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
 
                 <address class="footer-link">
-                    275 Quadra Street Victoria Road, New York
+                    Jl. Mayjend Sungkono, No. 106, Surabaya
                 </address>
             </li>
 
             <li class="footer-item">
                 <ion-icon name="call" aria-hidden="true"></ion-icon>
 
-                <a href="tel:+13647657839" class="footer-link">+ 1 (364) 765-7839</a>
+                <a href="tel:+0315621570" class="footer-link">(031)5621570</a>
             </li>
 
             <li class="footer-item">
                 <ion-icon name="call" aria-hidden="true"></ion-icon>
 
-                <a href="tel:+13647657840" class="footer-link">+ 1 (364) 765-7840</a>
+                <a href="tel:+6287864411265" class="footer-link">087864411265 | Kesiswaan</a>
             </li>
 
             <li class="footer-item">
                 <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
 
-                <a href="mailto:contact@eduhome.com" class="footer-link">contact@eduhome.com</a>
+                <a href="mailto:smagemapatma@gmail.com" class="footer-link">smagemapatma@gmail.com</a>
             </li>
 
         </ul>
@@ -193,7 +190,7 @@
 
     <div class="footer-bottom">
         <p class="copyright">
-            Copyright 2022 EduHome. All Rights Reserved by <a href="#" class="copyright-link">codewithsadee</a>
+            Copyright 2025. All Rights Reserved by <a href="#" class="copyright-link">Adam Sultonunmubin</a>
         </p>
     </div>
 

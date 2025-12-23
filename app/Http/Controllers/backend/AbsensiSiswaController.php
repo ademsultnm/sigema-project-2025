@@ -41,11 +41,11 @@ class AbsensiSiswaController extends Controller
         
         $query = AbsensiSiswa::with('kelas')
                     ->select('kelas_id', 'tanggal', 
-                             DB::raw('count(*) as total_siswa'),
-                             DB::raw("sum(case when kehadiran = 'hadir' then 1 else 0 end) as total_hadir"),
-                             DB::raw("sum(case when kehadiran = 'izin' then 1 else 0 end) as total_izin"),
-                             DB::raw("sum(case when kehadiran = 'sakit' then 1 else 0 end) as total_sakit"),
-                             DB::raw("sum(case when kehadiran = 'tidak_hadir' then 1 else 0 end) as total_alpha"))
+                            DB::raw('count(*) as total_siswa'),
+                            DB::raw("sum(case when kehadiran = 'hadir' then 1 else 0 end) as total_hadir"),
+                            DB::raw("sum(case when kehadiran = 'izin' then 1 else 0 end) as total_izin"),
+                            DB::raw("sum(case when kehadiran = 'sakit' then 1 else 0 end) as total_sakit"),
+                            DB::raw("sum(case when kehadiran = 'tidak_hadir' then 1 else 0 end) as total_alpha"))
                     ->whereNotNull('kelas_id')
                     ->groupBy('kelas_id', 'tanggal');
 
@@ -129,7 +129,7 @@ class AbsensiSiswaController extends Controller
         $absensi_siswa = AbsensiSiswa::findOrFail($id);
         $absensi_siswa->update($request->all());
         return redirect()->route('absensi_siswa.show_class', ['kelas' => $absensi_siswa->kelas_id, 'tanggal' => $absensi_siswa->tanggal])
-                         ->with('success', 'Absensi siswa berhasil diperbarui.');
+                        ->with('success', 'Absensi siswa berhasil diperbarui.');
     }
 
     public function destroy($id)

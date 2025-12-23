@@ -38,6 +38,7 @@
                                     @foreach ($absensiGurus as $absensiGuru)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
+             
                                             <td>{{ $absensiGuru->guru->nama }}</td>
                                             <td>{{ $absensiGuru->tanggal }}</td>
                                             <td>{{ $absensiGuru->kehadiran }}</td>

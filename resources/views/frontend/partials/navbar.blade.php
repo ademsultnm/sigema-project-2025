@@ -18,19 +18,19 @@
         <ul class="navbar-list">
 
             <li class="navbar-item">
-                <a href="{{url('/')}}" class="navbar-link" data-nav-toggler>Home</a>
+                <a href="{{url('/')}}" class="navbar-link" data-nav-toggler>Beranda</a>
             </li>
 
             <li class="navbar-item">
-                <a href="{{route('about.frontend')}}" class="navbar-link" data-nav-toggler>About</a>
+                <a href="{{route('about.frontend')}}" class="navbar-link" data-nav-toggler>Tentang</a>
             </li>
 
             <li class="navbar-item">
-                <a href="{{route('course.frontend')}}" class="navbar-link" data-nav-toggler>Courses</a>
+                <a href="{{route('course.frontend')}}" class="navbar-link" data-nav-toggler>Ekstrakurikuler</a>
             </li>
 
             <li class="navbar-item">
-                <a href="{{route('event.frontend')}}" class="navbar-link" data-nav-toggler>Event</a>
+                <a href="{{route('event.frontend')}}" class="navbar-link" data-nav-toggler>Kegiatan</a>
             </li>
 
             <li class="navbar-item">
@@ -38,7 +38,7 @@
             </li>
 
             <li class="navbar-item">
-                <a href="{{route('contact.frontend')}}" class="navbar-link" data-nav-toggler>Contact</a>
+                <a href="{{route('contact.frontend')}}" class="navbar-link" data-nav-toggler>Kontak</a>
             </li>
 
         </ul>
@@ -71,8 +71,8 @@
                     </li>
                     <li>
                         <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                           class="dropdown-item">
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        class="dropdown-item">
                             <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
                             <span class="span">Logout</span>
                         </a>
