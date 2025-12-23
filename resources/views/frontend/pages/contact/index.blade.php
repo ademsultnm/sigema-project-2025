@@ -3,14 +3,34 @@
 @section('title', 'Contact Us')
 
 @section('content')
-    <div class="container my-5" style="margin-top: 10%;">
+    <div class="container my-5" style="margin-top: 8%; margin-bottom: 3%;">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <h1 class="text-center">Contact Us</h1>
-                <p class="text-center">We'd love to hear from you. Whether you have a question about courses, pricing, or
-                    anything else, our team is ready to answer all your questions.</p>
+                <h1 class="text-center">Kontak Kami</h1>
+                <p class="text-center">Akses kontak personal kami disini.</p><br>
 
-                <form action="#" method="POST">
+                <ul class="footer-list">
+                    <li class="footer-item">
+                        <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+                        <a href="https://maps.app.goo.gl/4jTFbFgbomhxkgrN6" target="_blank" class="footer-link">
+                            Jl. Mayjend Sungkono, No. 106, Surabaya
+                        </a>
+                    </li>
+                    <li class="footer-item">
+                        <ion-icon name="call" aria-hidden="true"></ion-icon>
+                        <a href="tel:+0315621570" class="footer-link">(031) 5621570</a>
+                    </li>
+                    <li class="footer-item">
+                        <ion-icon name="call" aria-hidden="true"></ion-icon>
+                        <a href="tel:+6287864411265" class="footer-link">087864411265 | Kesiswaan</a>
+                    </li>
+                    <li class="footer-item">
+                        <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                        <a href="mailto:smagemapatma@gmail.com" class="footer-link">smagemapatma@gmail.com</a>
+                    </li>
+                </ul>
+
+                {{-- <form action="#" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="name">Name:</label>
@@ -35,7 +55,7 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary" style="margin-bottom: 20%;">Send Message</button>
                     </div>
-                </form>
+                </form> --}}
             </div>
         </div>
     </div>

@@ -90,7 +90,7 @@
 
     .breadcrumbs ol li a {
         text-decoration: none;
-        color: #0275d8;
+        color: rgb(135, 4, 22);
     }
 
     .breadcrumbs ol li a:hover {

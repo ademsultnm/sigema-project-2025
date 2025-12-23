@@ -3,14 +3,21 @@
 @section('content')
     <main>
         <article>
+
+            <!-- #BANNER INTRO-->
+            <section class="section category" aria-label="category">
+                <div class="container-fluid banner">
+                    <img src="{{ asset('images/welcome_banner.png') }}" alt="Welcome to SIGEMA" class="w-100" style="align-items: center;">
+                </div>
+            </section>
+
             <!-- #HERO-->
             <section class="hero" id="home" aria-label="hero"
-                {{-- PERBAIKAN: Mengganti gambar background dengan warna solid dan menyesuaikan warna teks --}}
                 style="background-color: hsl(220, 20%, 97%);">
                 <div class="container">
 
                     <div class="hero-content">
-                        
+
                         <p class="section-subtitle" style="color: var(--kappel);">Selamat Datang di SIGEMA</p>
 
                         <h2 class="h1 hero-title" style="color: var(--oxford-blue);">Manajemen Belajar Menjadi Lebih Mudah</h2>
@@ -18,14 +25,11 @@
                         <p class="hero-text" style="color: var(--slate-gray);">
                             Akses semua materi pelajaran, kerjakan tugas, lihat nilai, dan kelola administrasi sekolah Anda dalam satu platform terintegrasi.
                         </p>
-
                         <a href="{{ route('login') }}" class="btn btn-primary">
                             <span class="span">Login Sekarang</span>
                             <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
                         </a>
-
                     </div>
-
                     <figure class="hero-banner">
 
                         <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="500" height="500"
@@ -36,22 +40,17 @@
 
                         <img src="{{ asset('frontend/assets/images/hero-abs-2.png') }}" width="160" height="160"
                             loading="lazy" aria-hidden="true" class="abs-img abs-img-2">
-
                     </figure>
-
                 </div>
             </section>
 
             <!-- #CATEGORY-->
+            <div data-aos="fade-up" data-aos-duration="2000">
             <section class="section category" aria-label="category">
                 <div class="container">
-
                     <p class="section-subtitle">Fitur Utama</p>
-
                     <h2 class="h2 section-title">Jelajahi Berbagai Fitur Unggulan Kami</h2>
-
                     <ul class="grid-list">
-
                         <li>
                             <div class="category-card">
                                 <div class="card-icon">
@@ -135,24 +134,22 @@
                                 </div>
                             </div>
                         </li>
-
                     </ul>
-
                 </div>
             </section>
+            </div>
 
             <!-- #ABOUT-->
             <section class="section about" id="about" aria-label="about">
                 <div class="container">
 
-                    <figure class="about-banner">
-                        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="450" height="590"
-                            loading="lazy" alt="Guru sedang mengajar" class="w-100 about-img">
-                        <img src="{{ asset('frontend/assets/images/about-abs-1.jpg') }}" width="188" height="242"
-                            loading="lazy" aria-hidden="true" class="abs-img abs-img-1">
-                        <img src="{{ asset('frontend/assets/images/about-abs-2.jpg') }}" width="150" height="200"
-                            loading="lazy" aria-hidden="true" class="abs-img abs-img-2">
-                    </figure>
+                <figure class="about-banner">
+                    <img src="{{ asset('images/kepsek.JPG') }}" width="100" height="580" loading="lazy"
+                        alt="Gambar Latar Belakang Baru" class="w-100 about-img" style="border-radius: 10px;">
+
+                    <img src="{{ asset('images/kepsek.JPG') }}" width="188" height="242" loading="lazy"
+                        aria-hidden="true" class="abs-img abs-img-1" style="border: 5px solid #ffffff; border-radius: 10px;">
+                </figure>
 
                     <div class="about-content">
                         <p class="section-subtitle">Tentang SIGEMA</p>
@@ -205,11 +202,12 @@
             </section>
 
             <!--- #COURSE-->
+            <div data-aos="fade-up" data-aos-duration="2000">
             <section class="section course" id="courses" aria-label="course"
                 style="background-image: url('{{ asset('frontend/assets/images/course-bg.jpg') }}')">
                 <div class="container">
                     <p class="section-subtitle">Informasi Sekolah</p>
-                    <h2 class="h2 section-title">Berita & Acara Terbaru</h2>
+                    <h2 class="h2 section-title">Berita Terbaru</h2>
                     <ul class="grid-list">
                         <li>
                             <div class="course-card">
@@ -241,7 +239,7 @@
                         <li>
                             <div class="course-card">
                                 <figure class="card-banner">
-                                    <img src="https://images.unsplash.com/photo-1541339907198-e087564f17da?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="370"
+                                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="370"
                                         height="270" loading="lazy"
                                         alt="Siswa berkumpul di halaman sekolah" class="img-cover">
                                 </figure>
@@ -273,8 +271,8 @@
                                         class="img-cover">
                                 </figure>
                                 <div class="card-content">
-                                     <ul class="card-meta-list">
-                                         <li class="card-meta-item">
+                                    <ul class="card-meta-list">
+                                        <li class="card-meta-item">
                                             <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
                                             <span class="card-meta-text">25 Des - 5 Jan</span>
                                         </li>
@@ -283,9 +281,9 @@
                                         <a href="#" class="card-title">Informasi Libur Semester dan Awal Masuk</a>
                                     </h3>
                                     <div class="card-footer">
-                                         <a href="#" class="btn-link">
+                                        <a href="#" class="btn-link">
                                             <span class="span">Baca Selengkapnya</span>
-                                             <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                                            <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
                                         </a>
                                     </div>
                                 </div>
@@ -293,29 +291,35 @@
                         </li>
                     </ul>
 
-                    <a href="#" class="btn btn-primary">
+                    {{-- <a href="#" class="btn btn-primary">
                         <span class="span">Lihat Semua Berita</span>
                         <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-                    </a>
+                    </a> --}}
 
                 </div>
             </section>
+            </div>
 
             <!-- #CTA-->
             <section class="section cta" aria-label="workshop"
                 style="background-image: url('{{ asset('frontend/assets/images/cta-bg.png') }}')">
                 <div class="container">
 
-                    <figure class="cta-banner">
+                    {{-- <figure class="cta-banner">
                         <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="580" height="380"
                             loading="lazy" alt="Siswa berdiskusi" class="img-cover">
+                    </figure> --}}
+
+                    <figure class="cta-banner">
+                        <img src="{{ asset('images/siswa_gema.jpg') }}"
+                            width="700" height="378" loading="lazy" alt="Siswa berdiskusi" class="img-cover">
                     </figure>
 
                     <div class="cta-content">
-                        <p class="section-subtitle">Sudah Menjadi Siswa Kami?</p>
+                        <p class="section-subtitle">Masuk ke pembelajaran?</p>
                         <h2 class="h2 section-title">Masuk ke Akun Anda Sekarang</h2>
                         <p class="section-text">
-                           Login untuk mengakses dashboard personal Anda, melihat materi pelajaran, mengerjakan tugas, memantau nilai, dan mengelola semua kebutuhan akademik Anda dengan mudah.
+                        Login untuk mengakses dashboard personal Anda, melihat materi pelajaran, mengerjakan tugas, memantau nilai, dan mengelola semua kebutuhan akademik Anda dengan mudah.
                         </p>
                         <a href="{{ route('login') }}" class="btn btn-secondary">
                             <span class="span">Login di Sini</span>
@@ -327,6 +331,7 @@
             </section>
 
             <!-- #EVENT-->
+            <div data-aos="fade-up" data-aos-duration="2000">
             <section class="section event" id="event" aria-label="event">
                 <div class="container">
 
@@ -354,7 +359,7 @@
                         <li>
                             <div class="event-card">
                                 <figure class="card-banner">
-                                    <img src="https://images.unsplash.com/photo-1581093450021-4a7360b9a626?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="370"
+                                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="370"
                                         height="250" loading="lazy"
                                         alt="Laboratorium komputer" class="img-cover">
                                 </figure>
@@ -369,13 +374,55 @@
                         <li>
                             <div class="event-card">
                                 <figure class="card-banner">
-                                    <img src="https://images.unsplash.com/photo-1575043693484-a1b248a7351a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="370"
+                                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="370"
                                         height="250" loading="lazy"
                                         alt="Lapangan olahraga" class="img-cover">
                                 </figure>
                                 <div class="card-content">
                                     <h3 class="h3">
-                                        <a href="#" class="card-title">Lapangan Olahraga Standar Internasional</a>
+                                        <a href="#" class="card-title">Laboratorium Biologi</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="event-card">
+                                <figure class="card-banner">
+                                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                        width="370" height="250" loading="lazy" alt="Lapangan olahraga" class="img-cover">
+                                </figure>
+                                <div class="card-content">
+                                    <h3 class="h3">
+                                        <a href="#" class="card-title">Laboratorium Kimia</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="event-card">
+                                <figure class="card-banner">
+                                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                        width="370" height="250" loading="lazy" alt="Lapangan olahraga" class="img-cover">
+                                </figure>
+                                <div class="card-content">
+                                    <h3 class="h3">
+                                        <a href="#" class="card-title">Lapangan Olahraga Serbaguna yang luas</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="event-card">
+                                <figure class="card-banner">
+                                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                        width="370" height="250" loading="lazy" alt="Lapangan olahraga" class="img-cover">
+                                </figure>
+                                <div class="card-content">
+                                    <h3 class="h3">
+                                        <a href="#" class="card-title">Kelas Ber - AC 3</a>
                                     </h3>
                                 </div>
                             </div>
@@ -385,36 +432,52 @@
 
                 </div>
             </section>
+            </div>
 
             <!-- #NEWSLETTER-->
-            <section class="section newsletter" aria-label="newsletter"
+            {{-- section: banner diskon --}}
+            <section class="section category" aria-label="category">
+                <div class="container-fluid banner">
+                    <img src="{{ asset('images/diskon_banner.png') }}" alt="Banner Promosi" class="w-100"
+                        style="align-items: center;">
+                </div>
+            </section>
+            {{-- <section class="section newsletter" aria-label="newsletter"
                 style="background-image: url('{{ asset('frontend/assets/images/newsletter-bg.jpg') }}')">
                 <div class="container">
-
                     <p class="section-subtitle">Tetap Terhubung</p>
-
                     <h2 class="h2 section-title">Dapatkan Info Terbaru dari SIGEMA</h2>
-
                     <form action="" class="newsletter-form">
-
                         <div class="input-wrapper">
                             <input type="email" name="email_address" aria-label="email"
                                 placeholder="Masukkan alamat email Anda" required class="email-field">
-
                             <ion-icon name="mail-open-outline" aria-hidden="true"></ion-icon>
                         </div>
-
                         <button type="submit" class="btn btn-primary">
-                            <span class="span">Berlangganan</span>
-
+                            <span class="span">Kirim</span>
                             <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
                         </button>
-
                     </form>
+                </div>
+            </section> --}}
 
+            <!-- #LOCATION MAP -->
+            <div data-aos="fade-up" data-aos-duration="2000">
+            <section class="section location-map">
+                <div class="container">
+                    <p class="section-subtitle" style="text-align: center;">KAMI BERADA DISINI</p>
+                    <h2 class="h2 section-title" style="text-align: center; margin-bottom: 20px;">Lokasi Kami</h2>
+
+                    <div class="map-container" style="width: 100%;">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.561913079362!2d112.71861507668349!3d-7.2905802716629005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb0078f278f1%3A0xacffac6bb08a7a21!2sSMA%20GEMA%2045%20Surabaya!5e0!3m2!1sid!2sid!4v1765270449963!5m2!1sid!2sid"
+                            width="100%" height="450" style="border:0; mb-2" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
                 </div>
             </section>
-
+            </div>
         </article>
     </main>
 

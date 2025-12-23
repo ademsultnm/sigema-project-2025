@@ -7,9 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- favicon-->
-    <link rel="shortcut icon" href="{{ asset('frontend/favicon.svg') }}" type="image/svg+xml">
-
+    <link rel="shortcut icon" href="{{ asset('images/logo_gema.ico') }}" type="image/svg+xml">
     <title>@yield('title', 'Home')</title>
+    {{-- efek delay --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+
     @include('frontend.partials.styles')
 </head>
 
@@ -47,6 +49,11 @@
         @include('frontend.partials.footer')
     </footer>
     @include('frontend.partials.scripts')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
 
 </html>

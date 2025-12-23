@@ -18,7 +18,7 @@
                             <h5>Pengaturan Payment Gateway</h5>
                         </div>
                         <div class="card-body">
-                             @if (session('success'))
+                            @if (session('success'))
                                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
                             @endif
                             @if ($errors->any())

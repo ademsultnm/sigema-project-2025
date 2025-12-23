@@ -1,5 +1,5 @@
 /*-----------------------------------*\
-  #style.css
+#style.css
 \*-----------------------------------*/
 
 /**
@@ -7,7 +7,7 @@
  */
 
 /*-----------------------------------*\
-  #CUSTOM PROPERTY
+#CUSTOM PROPERTY
 \*-----------------------------------*/
 
 :root {
@@ -15,8 +15,10 @@
    * colors
    */
 
-    --ultramarine-blue_10: hsla(235, 70%, 60%, 0.1);
-    --ultramarine-blue: hsl(235, 70%, 60%);
+    /* --ultramarine-maroon_10: hsla(235, 70%, 60%, 0.1);
+    --ultramarine-maroon: hsl(235, 70%, 60%); */
+    --ultramarine-maroon_10: hsla(350, 70%, 30%, 0.1);
+    --ultramarine-maroon: hsl(350, 70%, 30%);
     --orange-peel_10: hsla(36, 100%, 55%, 0.1);
     --space-cadet_20: hsla(248, 32%, 23%, 0.2);
     --space-cadet_80: hsla(247, 35%, 19%, 0.8);
@@ -82,7 +84,7 @@
 }
 
 /*-----------------------------------*\
-  #RESET
+#RESET
 \*-----------------------------------*/
 
 *,
@@ -185,7 +187,7 @@ body {
 }
 
 .section-subtitle {
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
     text-transform: uppercase;
     font-weight: var(--fw-800);
     letter-spacing: 2px;
@@ -227,7 +229,7 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--ultramarine-blue);
+    background-color: var(--ultramarine-maroon);
     color: var(--white);
 }
 
@@ -237,7 +239,7 @@ body {
 
 .btn-secondary {
     background-color: var(--white);
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
 }
 
 .btn-secondary:is(:hover, :focus) {
@@ -293,7 +295,7 @@ body {
 }
 
 .logo {
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
     font-size: 2.4rem;
     font-weight: var(--fw-800);
 }
@@ -306,7 +308,7 @@ body {
 
 .header-action-btn {
     background-color: var(--white);
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
     padding: 12px;
     border-radius: var(--radius-4);
     box-shadow: var(--shadow-1);
@@ -371,7 +373,7 @@ body {
 }
 
 .navbar-link:is(:hover, :focus) {
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
 }
 
 .overlay {
@@ -496,7 +498,7 @@ body {
 .category-card {
     --title-color: var(--space-cadet-2);
     --meta-color: var(--old-lavender);
-    --icon-color: var(--ultramarine-blue);
+    --icon-color: var(--ultramarine-maroon);
     --icon-bg: var(--white);
 
     background-color: var(--cultured-1);
@@ -536,7 +538,7 @@ body {
     --icon-color: var(--white);
     --icon-bg: var(--white_10);
 
-    background-color: var(--ultramarine-blue);
+    background-color: var(--ultramarine-maroon);
 }
 
 /*-----------------------------------*\
@@ -582,7 +584,7 @@ body {
 }
 
 .about-item .item-icon-2 {
-    background-color: var(--ultramarine-blue_10);
+    background-color: var(--ultramarine-maroon_10);
 }
 
 .about-item .item-icon-3 {
@@ -650,7 +652,7 @@ body {
 
 .course-card .badge {
     background-color: var(--white);
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
     font-size: var(--fs-6);
     font-weight: var(--fw-600);
     padding: 4px 12px;
@@ -707,7 +709,7 @@ body {
 }
 
 .course-card .card-title:is(:hover, :focus) {
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
 }
 
 .course-card .rating {
@@ -743,7 +745,7 @@ body {
 }
 
 .course-card .card-price .span {
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
     font-size: var(--fs-4);
     font-weight: var(--fw-700);
 }
@@ -757,7 +759,7 @@ body {
 \*-----------------------------------*/
 
 .cta {
-    background-color: var(--ultramarine-blue);
+    background-color: var(--ultramarine-maroon);
     color: var(--white);
     background-repeat: no-repeat;
     background-size: auto;
@@ -808,7 +810,7 @@ body {
     position: absolute;
     top: 25px;
     left: 0;
-    background-color: var(--ultramarine-blue);
+    background-color: var(--ultramarine-maroon);
     color: var(--white);
     padding: 5px 15px;
     border-radius: 0 50px 50px 0;
@@ -827,7 +829,7 @@ body {
 }
 
 .event-card .card-address ion-icon {
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
     --ionicon-stroke-width: 40px;
 }
 
@@ -842,11 +844,11 @@ body {
 }
 
 .event-card .card-title:is(:hover, :focus) {
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
 }
 
 .event-card .btn-link {
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
     font-size: var(--fs-5);
     font-weight: var(--fw-700);
     max-width: max-content;
@@ -858,7 +860,7 @@ body {
 }
 
 .event-card .btn-link:is(:hover, :focus) {
-    border-color: var(--ultramarine-blue);
+    border-color: var(--ultramarine-maroon);
 }
 
 /*-----------------------------------*\
@@ -902,7 +904,7 @@ body {
 \*-----------------------------------*/
 
 .footer {
-    background-color: var(--space-cadet-2);
+    background-color: var(--ultramarine-maroon);
     color: var(--white);
 }
 
@@ -935,7 +937,7 @@ body {
 }
 
 .social-link:is(:hover, :focus) {
-    background-color: var(--ultramarine-blue);
+    background-color: var(--ultramarine-maroon);
 }
 
 .footer-list-title {
@@ -957,7 +959,7 @@ body {
 }
 
 .footer-link:not(address):is(:hover, :focus) {
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
 }
 
 .footer-item {
@@ -984,7 +986,7 @@ body {
 }
 
 .copyright-link:is(:hover, :focus) {
-    color: var(--ultramarine-blue);
+    color: var(--ultramarine-maroon);
 }
 
 /*-----------------------------------*\
@@ -1121,7 +1123,7 @@ body {
         display: flex;
         align-items: center;
         gap: 8px;
-        background-color: var(--ultramarine-blue);
+        background-color: var(--ultramarine-maroon);
         color: var(--white);
         min-height: 50px;
         padding-inline: 25px;
@@ -1154,10 +1156,12 @@ body {
     }
 
     .about .abs-img-2 {
-        display: block;
         position: absolute;
-        top: 15%;
-        left: -120px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         border-radius: var(--radius-4);
         z-index: -1;
     }

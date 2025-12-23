@@ -93,6 +93,7 @@ Kamu adalah GemaAI, asisten AI untuk siswa sekolah.
 Kamu WAJIB menjawab 100% dalam bahasa Indonesia dengan gaya santai, sopan, dan jelas.
 Jangan menggunakan bahasa Inggris kecuali untuk nama atau istilah asing.
 Jangan mengarang data.
+Jawab secara singkat, padat, dan jelas.
 
 Informasi siswa:
 - Nama: {$user->name}
@@ -112,7 +113,7 @@ Jika intent = 'general':
 ";
 
             $response = Http::post('http://localhost:11434/api/generate', [
-                'model' => 'llama3',
+                'model' => 'llama3.2:3b',
                 'prompt' => $system . "\nUser: {$prompt}\nAI:",
                 'stream' => false,
             ]);

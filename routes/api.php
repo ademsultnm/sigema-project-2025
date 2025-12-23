@@ -17,5 +17,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route::get('/kelas/{kelas_id}/siswa', [NilaiController::class, 'getSiswaByKelas'])->middleware('auth:sanctum');
 
+// DOKU Webhook Notification Route yang ditambahkan untuk menerima notifikasi pembayaran
+// "api/doku/notification"
 Route::post('/doku/notification', [DokuWebhookController::class, 'handle']);
 

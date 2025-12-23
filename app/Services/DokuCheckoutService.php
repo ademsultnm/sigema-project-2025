@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class DokuCheckoutService
 {
@@ -41,7 +42,7 @@ class DokuCheckoutService
 
         $clientId = $this->clientId;
         $secretKey = $this->secretKey;
-        $requestId = (string) \Str::uuid();
+        $requestId = (string) Str::uuid();
         $timestamp = gmdate('Y-m-d\TH:i:s\Z'); // MUST UTC
 
         // Signature formula by DOKU

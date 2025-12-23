@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     
-
+{{-- Desain Chatbot --}}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +29,7 @@
     {{-- </div> --}}
     <!--scripts-->
     @include('backend.partials.scripts')
-  @if (auth()->check() && strtolower(auth()->user()->role) === 'murid')
+    @if (auth()->check() && strtolower(auth()->user()->role) === 'murid')
 <script>
     window.CHATSPOT = {
         user_id: @json(auth()->user()->id),
