@@ -12,6 +12,7 @@ class Raport extends Model
 
     protected $fillable = [
         'siswa_id',
+        'mata_pelajaran_id', // baru
         'semester',
         'tahun_ajaran',
         'rata_rata_nilai',
@@ -22,6 +23,11 @@ class Raport extends Model
     public function siswa()
     {
         return $this->belongsTo(Siswa::class);
+    }
+
+    public function mataPelajaran() {
+        // return $this->belongsTo(MataPelajaran::class, 'mata_pelajaran_id');
+        return $this->belongsTo(MataPelajaran::class);
     }
 
     public function kelas()

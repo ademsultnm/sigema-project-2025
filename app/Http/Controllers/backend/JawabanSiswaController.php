@@ -5,6 +5,8 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\ELearning;
 use App\Models\PengumpulanTugas;
+use App\Models\MataPelajaran;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -13,28 +15,52 @@ class JawabanSiswaController extends Controller
     /**
      * Menampilkan daftar tugas yang sudah memiliki jawaban dari siswa.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tugasDenganJawaban = ELearning::where('tipe', 'tugas')
+        // $tugasDenganJawaban = ELearning::where('tipe', 'tugas')
+        $query = Elearning::with('mataPelajaran')
             ->whereHas('pengumpulanTugas')
-            ->withCount('pengumpulanTugas')
-            ->latest()
-            ->paginate(10);
+            ->withCount('pengumpulanTugas');
+            
+            if ($request->has('mata_pelajaran_id') && $request->mata_pelajaran_id != '') {
+                $query->where('mata_pelajaran_id', $request->mata_pelajaran_id);
+            }
 
-        return view('backend.pages.jawaban_siswa.index', compact('tugasDenganJawaban'));
+            $tugasDenganJawaban = $query->latest()->paginate(10);
+            $mataPelajarans = MataPelajaran::orderBy('nama', 'asc')->get();
+
+        return view('backend.pages.jawaban_siswa.index', compact('tugasDenganJawaban', 'mataPelajarans'));
     }
 
     /**
-     * Menampilkan daftar siswa yang sudah mengumpulkan jawaban untuk tugas tertentu.
+     * UPDATE: Menambahkan Filter kelas disini
      */
-    public function show(ELearning $eLearning)
+    public function show(Request $request, ELearning $eLearning)
     {
-        $pengumpulan = PengumpulanTugas::with('siswa')
-            ->where('e_learning_id', $eLearning->id)
-            ->orderBy('waktu_pengumpulan', 'desc')
-            ->get();
+        // $pengumpulan = PengumpulanTugas::with('siswa')
+        //     ->where('e_learning_id', $eLearning->id)
+        //     ->orderBy('waktu_pengumpulan', 'desc')
+        //     ->get();
+
+        // 1. siapkan Query dasar
+        $query = PengumpulanTugas::with(['siswa.kelas']) //eager load relasi siswa dan kelas
+            ->where('e_learning_id', $eLearning->id);
             
-        return view('backend.pages.jawaban_siswa.show', compact('eLearning', 'pengumpulan'));
+
+        // 2. tambahkan filter kelas jika ada many to many
+        if ($request->has('kelas_id') && $request->kelas_id != '') {
+            $query->whereHas('siswa.kelas', function ($q) use ($request) {
+                $q->where('kelas_id', $request->kelas_id);
+            });
+        }
+
+        // 3. eksekusi query
+        $pengumpulan = $query->orderBy('waktu_pengumpulan', 'desc')->get();
+
+        // 4. ambil kelas list
+        $kelasList = Kelas::orderBy('nama', 'asc')->get();
+
+        return view('backend.pages.jawaban_siswa.show', compact('eLearning', 'pengumpulan', 'kelasList'));
     }
 
     /**

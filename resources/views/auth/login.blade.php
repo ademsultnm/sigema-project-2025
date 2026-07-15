@@ -6,7 +6,7 @@ Login
 
 @section('content')
     <div class="container mt-4">
-    <div class="row justify-content-center">
+        <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
             <div class="card login-card">
                 <div class="card-body">

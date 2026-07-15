@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -28,9 +29,7 @@ class AdminController extends Controller
         return view('backend.pages.admin.create');
     }
 
-    /**
-     * Menyimpan admin baru ke database.
-     */
+    // Menyimpan admin baru ke database.
     public function store(Request $request)
     {
         $request->validate([
@@ -110,7 +109,7 @@ class AdminController extends Controller
         // }
 
         // Mencegah user menghapus akunnya sendiri
-        if (auth()->id() == $admin->id) {
+        if (Auth::id() == $admin->id) {
             return redirect()->route('admin.index')->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
         }
 

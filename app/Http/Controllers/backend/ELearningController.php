@@ -14,11 +14,28 @@ use Illuminate\Support\Facades\DB;
 
 class ELearningController extends Controller
 {
-    public function index()
+    // update: tambah Request $request untuk menangkap input filter
+    public function index(Request $request)
     {
         // Eager load semua relasi yang dibutuhkan
-        $eLearnings = ELearning::with(['guru', 'mataPelajaran', 'kelas'])->latest()->paginate(10);
-        return view('backend.pages.e_learning.index', compact('eLearnings'));
+        // $eLearnings = ELearning::with(['guru', 'mataPelajaran', 'kelas'])->latest()->paginate(10);
+        // return view('backend.pages.e_learning.index', compact('eLearnings'));
+
+        // 1. siapkan query dasar dengan eager loading
+        $query = ELearning::with(['guru', 'mataPelajaran', 'kelas']);
+
+        // 2. logika filter berdasarkan guru
+        if ($request->has('guru_id') && $request->guru_id != '') {
+            $query->where('guru_id', $request->guru_id);
+        }
+
+        // 3. eksekusi query
+        $eLearnings = $query->latest()->paginate(10);
+
+        // 4. ambil data guru untuk dropdown filter (urut abjad)
+        $gurus = Guru::orderBy('nama', 'asc')->get();
+
+        return view('backend.pages.e_learning.index', compact('eLearnings', 'gurus'));
 
         // tampilan tugas hanya untuk akun yang login sebagai guru
         // $user = auth()->user();
@@ -43,7 +60,7 @@ class ELearningController extends Controller
     {
         $gurus = Guru::all();
         $mataPelajarans = MataPelajaran::all();
-        $kelas = Kelas::orderBy('nama')->get(); // Ambil data kelas untuk form
+        $kelas = Kelas::orderBy('nama')->get();
         return view('backend.pages.e_learning.create', compact('gurus', 'mataPelajarans', 'kelas'));
 
         // perbaikan method create
@@ -56,8 +73,8 @@ class ELearningController extends Controller
         $request->validate([
             'guru_id' => 'required|exists:guru,id',
             'mata_pelajaran_id' => 'required|exists:mata_pelajaran,id',
-            'kelas_ids' => 'required|array', // Validasi input kelas harus array
-            'kelas_ids.*' => 'exists:kelas,id', // Validasi setiap item dalam array kelas
+            'kelas_ids' => 'required|array',
+            'kelas_ids.*' => 'exists:kelas,id',
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'jenjang' => 'required|in:SMP,SMA',
@@ -97,7 +114,8 @@ class ELearningController extends Controller
 
     public function show(ELearning $eLearning)
     {
-        $eLearning->load('kelas'); // Muat relasi kelas
+        // Muat relasi kelas
+        $eLearning->load('kelas');
         return view('backend.pages.e_learning.show', compact('eLearning'));
     }
 
@@ -106,7 +124,8 @@ class ELearningController extends Controller
         $gurus = Guru::all();
         $mataPelajarans = MataPelajaran::all();
         $kelas = Kelas::orderBy('nama')->get();
-        $eLearning->load('kelas'); // Muat kelas yang sudah terhubung
+        // Muat kelas yang sudah terhubung
+        $eLearning->load('kelas'); 
         return view('backend.pages.e_learning.edit', compact('eLearning', 'gurus', 'mataPelajarans', 'kelas'));
     }
 
@@ -143,8 +162,8 @@ class ELearningController extends Controller
             // 2. Sinkronkan kelas yang dipilih (otomatis menambah/menghapus relasi)
             if (!empty($request->kelas_ids)) {
                 $eLearning->kelas()->sync($request->kelas_ids);
-            } else {
-                $eLearning->kelas()->detach(); // Hapus semua relasi jika tidak ada kelas yang dipilih
+            } else { // Hapus semua relasi jika tidak ada kelas yang dipilih
+                $eLearning->kelas()->detach(); 
             }
 
             DB::commit();

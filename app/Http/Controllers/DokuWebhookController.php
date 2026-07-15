@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class DokuWebhookController extends Controller
 {
-     public function handle(Request $request)
+    public function handle(Request $request)
     {
         // Simpan log callback untuk debugging
         Log::info('DOKU CALLBACK: ', $request->all());

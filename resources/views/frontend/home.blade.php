@@ -48,7 +48,7 @@
             <div data-aos="fade-up" data-aos-duration="2000">
             <section class="section category" aria-label="category">
                 <div class="container">
-                    <p class="section-subtitle">Fitur Utama</p>
+                    <p class="section-subtitle">Akses Utama</p>
                     <h2 class="h2 section-title">Jelajahi Berbagai Fitur Unggulan Kami</h2>
                     <ul class="grid-list">
                         <li>

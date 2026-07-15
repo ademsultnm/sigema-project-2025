@@ -52,6 +52,9 @@ Auth::routes();
 // =====================================================================
 Route::middleware(['auth', 'verified'])->group(function () {
     
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/nilai/{mapel_id}', [DashboardController::class, 'detailNilai'])->name('dashboard.nilai.detail');
+
     // Rute Dashboard dan Logout yang bisa diakses semua peran
     Route::get('/home', [DashboardController::class, 'index'])->name('home');
     Route::post('/logouts', [LoginController::class, 'logout'])->name('logouts');
@@ -92,8 +95,10 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::resource('jawaban', JawabanController::class);
     Route::resource('siswa', SiswaController::class);
     Route::resource('jadwal-pelajaran', JadwalPelajaranController::class);
-    Route::resource('nilai', NilaiController::class)->except(['index']); // Index sudah ada di grup umum
-
+    Route::resource('nilai', NilaiController::class)->except(['index']); 
+    
+    // Index sudah ada di grup umum
+    Route::get('/raports/export-pdf', [App\Http\Controllers\backend\RaportController::class, 'exportPdf'])->name('raports.export_pdf');
     Route::resource('raports', RaportController::class);
     Route::resource('absensi-guru', AbsensiGuruController::class);
 
@@ -112,8 +117,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/api/kelas/{kelas_id}/siswa', [NilaiController::class, 'getSiswaByKelas'])->name('api.siswa.by.kelas');
 });
 
-Route::get('/pay/{tagihan}', [CheckoutController::class, 'create'])->name('pay.create');
+    Route::get('/pay/{tagihan}', [CheckoutController::class, 'create'])->name('pay.create');
 
-Route::post('/chatspot', [ChatSpotController::class, 'handle'])
+    Route::post('/chatspot', [ChatSpotController::class, 'handle'])
     ->middleware('auth');
 

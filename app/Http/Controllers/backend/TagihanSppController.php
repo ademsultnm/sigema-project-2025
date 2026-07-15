@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\TagihanSpp;
 use App\Models\Siswa;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +14,7 @@ class TagihanSppController extends Controller
     /**
      * Menampilkan daftar tagihan SPP berdasarkan peran pengguna.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $userRole = strtolower($user->role);
@@ -37,8 +38,26 @@ class TagihanSppController extends Controller
         // ==========================================================
         //         LOGIKA UNTUK ADMIN & STAF KEUANGAN
         // ==========================================================
-        $tagihanSpps = TagihanSpp::with('siswa')->latest()->paginate(10);
-        return view('backend.pages.tagihan_spp.index', compact('tagihanSpps'));
+        // $tagihanSpps = TagihanSpp::with('siswa')->latest()->paginate(10);
+        // return view('backend.pages.tagihan_spp.index', compact('tagihanSpps'));
+
+        // 1. Load siswa beserta history kelasnya (pivot table)
+        $query = TagihanSpp::with(['siswa.kelas']); 
+
+        // 2. Filter Berdasarkan Kelas
+        if ($request->has('kelas_id') && $request->kelas_id != '') {
+            $query->whereHas('siswa.kelas', function($q) use ($request) {
+                $q->where('kelas.id', $request->kelas_id);
+            });
+        }
+
+        // 3. Eksekusi Query
+        $tagihanSpps = $query->latest()->paginate(10);
+
+        // 4. Ambil Daftar Kelas untuk Dropdown (Urutkan berdasarkan nama)
+        $kelasList = Kelas::orderBy('nama', 'asc')->get(); 
+
+        return view('backend.pages.tagihan_spp.index', compact('tagihanSpps', 'kelasList'));
     }
 
     // ... (method create, store, edit, update, destroy tetap sama) ...

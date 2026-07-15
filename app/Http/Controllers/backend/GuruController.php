@@ -21,8 +21,7 @@ class GuruController extends Controller
         $query = Guru::with('user');
 
         $query->when($request->search, function ($q, $search) {
-            return $q->where('nama', 'like', "%{$search}%")
-                    ->orWhere('mata_pelajaran', 'like', "%{$search}%");
+            return $q->where('nama', 'like', "%{$search}%")->orWhere('mata_pelajaran', 'like', "%{$search}%");
         });
 
         $query->when($request->jenjang, function ($q, $jenjang) {

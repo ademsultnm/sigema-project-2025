@@ -6,36 +6,68 @@ use App\Http\Controllers\Controller;
 use App\Models\AbsensiGuru;
 use App\Models\Guru;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AbsensiGuruController extends Controller
 {
     public function index()
     {
-        $absensiGurus = AbsensiGuru::latest()->paginate(10);
+        // $absensiGurus = AbsensiGuru::with()->paginate(10);
+        $absensiGurus = AbsensiGuru::with('guru')->latest()->paginate(20);
+        // menampilkan data terbaru
         return view('backend.pages.absensi-guru.index', compact('absensiGurus'));
     }
 
     public function create()
     {
-        $gurus = Guru::all();
+        // $gurus = Guru::all()
+        $gurus = Guru::orderBy('nama', 'asc')->get();
         return view('backend.pages.absensi-guru.create', compact('gurus'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'guru_id' => 'required',
+            // 'guru_id' => 'required',
             'tanggal' => 'required|date',
-            'kehadiran' => 'required|in:hadir,tidak_hadir,izin',
+            // 'kehadiran' => 'required|in:hadir,tidak_hadir,izin',
             'jenjang' => 'required|in:SMP,SMA',
+            'kehadiran'=> 'required|array', //pastikan kehadiran adalah array
+            'kehadiran.*' => 'required|in:hadir,tidak_hadir,izin,sakit,alpha' //validasi setiap elemen dalam array
         ]);
 
-        AbsensiGuru::create($request->all());
+        // AbsensiGuru::create($request->all());
 
-        return redirect()->route('absensi-guru.index')
-            ->with('success', 'Absensi guru berhasil ditambahkan.');
+        $tanggal = $request->tanggal;
+        $jenjang = $request->jenjang;
+        $datakehadiran = $request->kehadiran; //array dari kehadiran
+
+        try {
+            DB::beginTransaction();
+
+            foreach ($datakehadiran as $guru_id => $status) {
+                AbsensiGuru::updateOrCreate([
+                    'guru_id' => $guru_id,
+                    'tanggal' => $tanggal,
+                    ], [
+                    'jenjang' => $jenjang,
+                    'kehadiran' => $status,
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->route('absensi-guru.index')
+                ->with('success', 'Absensi guru berhasil ditambahkan.' . $tanggal);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan saat menyimpan absensi: ' . $e->getMessage())
+                ->withInput();
+        }
     }
 
+
+    //method show, edit, update, destroy untuk absensi guru
     public function show(AbsensiGuru $absensiGuru)
     {
         return view('backend.pages.absensi-guru.show', compact('absensiGuru'));
@@ -52,21 +84,18 @@ class AbsensiGuruController extends Controller
         $request->validate([
             'guru_id' => 'required',
             'tanggal' => 'required|date',
-            'kehadiran' => 'required|in:hadir,tidak_hadir,izin',
-            'jenjang' => 'required|in:SMP,SMA',
+            'kehadiran' => 'required',
+            'jenjang' => 'required',
         ]);
 
         $absensiGuru->update($request->all());
 
-        return redirect()->route('absensi-guru.index')
-            ->with('success', 'Absensi guru berhasil diperbarui.');
+        return redirect()->route('absensi-guru.index')->with('success', 'Data absensi guru berhasil diperbarui.');
     }
-
     public function destroy(AbsensiGuru $absensiGuru)
     {
         $absensiGuru->delete();
 
-        return redirect()->route('absensi-guru.index')
-            ->with('success', 'Absensi guru berhasil dihapus.');
+        return redirect()->route('absensi-guru.index')->with('success', 'Absensi guru berhasil dihapus.');
     }
 }

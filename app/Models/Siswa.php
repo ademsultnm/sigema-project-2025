@@ -28,8 +28,11 @@ class Siswa extends Model
         return $this->hasOne(User::class, 'siswa_id');
     }
 
+    // menggunakan belongs to many
     public function kelas()
     {
-        return $this->belongsToMany(Kelas::class, 'kelas_siswa')->withPivot('tahun_ajaran')->withTimestamps();
+        return $this->belongsToMany(Kelas::class, 'kelas_siswa', 'siswa_id', 'kelas_id')
+        ->withPivot('tahun_ajaran')
+        ->withTimestamps();
     }
 }
